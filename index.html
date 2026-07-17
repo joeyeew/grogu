@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人財務儀表板</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "PingFang HK", "Helvetica Neue", Arial, sans-serif;
+            background-color: #f0f7ff;
+            background-image: radial-gradient(#e0f2fe 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+        }
+        /* Toy Story Style Customizations */
+        .ts-header {
+            background-color: #2563eb; /* Buzz & Andy Sky Blue */
+            border-bottom: 6px solid #eab308; /* Woody Badge Gold */
+        }
+        .ts-card {
+            border: 3px solid #93c5fd;
+            box-shadow: 4px 4px 0px #2563eb;
+        }
+        .btn-woody {
+            background-color: #eab308;
+            color: #1e3a8a;
+            border: 2px solid #1e3a8a;
+            box-shadow: 2px 2px 0px #1e3a8a;
+        }
+        .btn-woody:hover {
+            background-color: #facc15;
+        }
+        .btn-buzz {
+            background-color: #a855f7;
+            color: white;
+            border: 2px solid #6b21a8;
+            box-shadow: 2px 2px 0px #6b21a8;
+        }
+        .btn-buzz:hover {
+            background-color: #c084fc;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 pb-20">
+
+    <!-- 1. MULTI-USER LOGIN & REGISTER SCREEN -->
+    <div id="loginScreen" class="fixed inset-0 bg-sky-500 z-50 flex flex-col justify-center items-center px-4">
+        <!-- Cloud Pattern Backdrop Background -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none flex flex-wrap content-around justify-around p-10">
+            <span class="text-8xl text-white font-bold">☁️</span>
+            <span class="text-9xl text-white font-bold">☁️</span>
+            <span class="text-7xl text-white font-bold">☁️</span>
+            <span class="text-8xl text-white font-bold">☁️</span>
+        </div>
+        
+        <div class="bg-white p-8 rounded-3xl max-w-md w-full border-4 border-yellow-400 shadow-[8px_8px_0px_#1e3a8a] relative z-10">
+            
+            <!-- Tab Headers -->
+            <div class="flex justify-center space-x-4 mb-6 border-b-2 border-slate-100 pb-2">
+                <button id="tabLogin" onclick="switchAuthMode('login')" class="text-xl font-black text-blue-900 border-b-4 border-blue-600 pb-1 px-4">
+                    🤠 登入帳號
+                </button>
+                <button id="tabRegister" onclick="switchAuthMode('register')" class="text-xl font-black text-slate-400 pb-1 px-4 hover:text-blue-900 transition">
+                    🚀 註冊新帳戶
+                </button>
+            </div>
+
+            <!-- Form Content -->
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-black text-slate-500 mb-1">用戶名稱 (Username)</label>
+                    <input type="text" id="usernameInput" placeholder="請輸入用戶名稱" class="w-full px-4 py-2 border-3 border-blue-200 rounded-xl focus:outline-none focus:border-blue-500 font-bold text-slate-700">
+                </div>
+                <div>
+                    <label class="block text-xs font-black text-slate-500 mb-1">暗號密碼 (Password)</label>
+                    <input type="password" id="passwordInput" placeholder="請輸入密碼" class="w-full px-4 py-2 border-3 border-blue-200 rounded-xl focus:outline-none focus:border-blue-500 font-bold text-slate-700">
+                </div>
+
+                <button id="submitAuthBtn" onclick="handleAuthAction()" class="w-full btn-woody font-black text-base py-3 rounded-xl transition mt-2">
+                    確認登入 🔓
+                </button>
+            </div>
+            
+            <p id="errorMsg" class="text-red-500 text-xs font-bold mt-4 text-center hidden"></p>
+        </div>
+    </div>
+
+    <!-- 2. MAIN DASHBOARD INTERFACE (Hidden by default) -->
+    <div id="mainDashboard" class="hidden">
+        <!-- Header -->
+        <header class="ts-header text-white py-6 px-4 mb-8 shadow-lg">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-center sm:text-left gap-4">
+                <div>
+                    <h1 class="text-3xl font-black tracking-wider text-yellow-300 drop-shadow-[2px_2px_0_rgba(30,58,138,1)]">
+                        個人財務儀表板
+                    </h1>
+                    <p class="text-blue-100 text-sm mt-1 font-bold">歡迎回來！</p>
+                </div>
+                <div class="flex flex-wrap justify-center items-center gap-3">
+                    <div class="text-xs bg-yellow-400 border-2 border-blue-950 px-3 py-2 rounded-xl text-blue-950 font-black shadow">
+                        👤 當前用戶: <span id="currentUserDisplay" class="text-red-600 underline">Andy</span>
+                    </div>
+                    <button onclick="handleLogout()" class="bg-red-500 hover:bg-red-600 border-2 border-red-950 text-white font-black text-xs px-3 py-2 rounded-xl shadow transition">
+                        安全登出 🚪
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-4 space-y-10">
+
+            <!-- SECTION 1: 個人收入 -->
+            <section class="bg-white rounded-2xl p-6 ts-card">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between border-b-4 border-dashed border-blue-200 pb-4 mb-6 gap-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-3xl">💰</span>
+                        <h2 class="text-2xl font-black text-blue-900">個人收入</h2>
+                    </div>
+                    
+                    <div class="flex flex-wrap items-center gap-3 bg-yellow-50 p-3 rounded-xl border-2 border-yellow-200">
+                        <div class="flex items-center space-x-1.5">
+                            <label class="text-xs font-black text-amber-800">年份篩選:</label>
+                            <select id="incYearFilter" onchange="renderIncomeTable()" class="text-xs border-2 border-blue-300 rounded-lg px-2 py-1 bg-white font-bold focus:outline-none">
+                                <option value="all">全部年份</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center space-x-1.5">
+                            <label class="text-xs font-black text-amber-800">統計區間:</label>
+                            <select id="incomeTimeRange" onchange="updateIncomeSummary()" class="text-xs border-2 border-blue-300 rounded-lg px-2 py-1 bg-white font-bold focus:outline-none">
+                                <option value="all">全部紀錄</option>
+                                <option value="thisMonth">今個月</option>
+                                <option value="3months">近 3 個月</option>
+                                <option value="6months">近 6 個月</option>
+                                <option value="thisYear">今年度</option>
+                            </select>
+                        </div>
+                        <div class="text-sm font-black text-slate-700">
+                            總淨收入 (扣除 MPF): <span id="summaryTotal" class="text-xl font-black text-blue-700 ml-1">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <form id="incomeForm" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 items-end bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">公司名稱</label>
+                        <input type="text" id="incCompany" required class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">年份、月份、日期</label>
+                        <input type="date" id="incDate" required class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">基本薪金 (HKD)</label>
+                        <input type="number" id="incBase" min="0" step="any" required oninput="calculateIncome()" class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">花紅/獎金 (HKD)</label>
+                        <input type="number" id="incBonus" min="0" step="any" required value="0" oninput="calculateIncome()" class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">強積金供款 (自動 5%)</label>
+                        <input type="text" id="incMpf" readonly class="w-full px-3 py-2 bg-slate-100 border-2 border-slate-200 rounded-lg text-sm text-slate-600 font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">最終收入 (HKD)</label>
+                        <input type="text" id="incFinal" readonly class="w-full px-3 py-2 bg-slate-100 border-2 border-slate-200 rounded-lg text-sm font-black text-blue-700">
+                    </div>
+                    <div class="md:col-span-3 lg:col-span-6 flex justify-end gap-3 mt-2">
+                        <button type="button" onclick="exportCSV('incomes')" class="btn-buzz font-bold text-sm px-4 py-2 rounded-xl transition">
+                            📥 匯出 CSV 數據
+                        </button>
+                        <button type="submit" class="btn-woody font-black text-sm px-6 py-2 rounded-xl transition">
+                            儲存收入紀錄
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-6 overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm font-bold">
+                        <thead>
+                            <tr class="bg-blue-50 text-blue-900 border-b-2 border-blue-200">
+                                <th class="py-3 px-4">公司名稱</th>
+                                <th class="py-3 px-4">日期</th>
+                                <th class="py-3 px-4">基本薪金</th>
+                                <th class="py-3 px-4">花紅/獎金</th>
+                                <th class="py-3 px-4">強積金 (5%)</th>
+                                <th class="py-3 px-4">最終收入</th>
+                                <th class="py-3 px-4 text-right">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="incomeTableBody" class="divide-y divide-slate-100"></tbody>
+                    </table>
+                </div>
+                
+                <div id="incShowAllContainer" class="mt-4 text-center hidden">
+                    <button id="incShowAllBtn" onclick="toggleShowAll('incomes')" class="text-sm font-black text-blue-600 hover:underline">
+                        顯示全部紀錄 ↓
+                    </button>
+                </div>
+            </section>
+
+            <!-- SECTION 2: 個人保險 -->
+            <section class="bg-white rounded-2xl p-6 ts-card">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b-4 border-dashed border-blue-200 pb-4 mb-6 gap-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-3xl">🛡️</span>
+                        <h2 class="text-2xl font-black text-blue-900">個人保險</h2>
+                    </div>
+                    <div class="flex items-center space-x-1.5 bg-yellow-50 p-2 rounded-xl border border-yellow-200">
+                        <label class="text-xs font-black text-amber-800">年份篩選:</label>
+                        <select id="insYearFilter" onchange="renderInsuranceTable()" class="text-xs border-2 border-blue-300 rounded-lg px-2 py-1 bg-white font-bold focus:outline-none">
+                            <option value="all">全部年份</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <form id="insuranceForm" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 items-end bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">保險公司</label>
+                        <select id="insCompany" class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold bg-white">
+                            <option value="FWD富衛保險">FWD富衛保險</option>
+                            <option value="Bowtie">Bowtie</option>
+                            <option value="Manulife宏利">Manulife宏利</option>
+                            <option value="保誠Prudential">保誠Prudential</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">保險計劃名稱</label>
+                        <input type="text" id="insPlan" required class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">性質</label>
+                        <select id="insType" class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold bg-white">
+                            <option value="自願醫保">自願醫保</option>
+                            <option value="危疾">危疾</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">繳費模式</label>
+                        <select id="insMode" class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold bg-white">
+                            <option value="年繳">年繳</option>
+                            <option value="月繳">月繳</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">繳費日期</label>
+                        <input type="date" id="insDate" required class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">繳費金額 (HKD)</label>
+                        <input type="number" id="insAmount" min="0" step="any" required class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold">
+                    </div>
+                    <div class="md:col-span-3 lg:col-span-6 flex justify-end gap-3 mt-2">
+                        <button type="button" onclick="exportCSV('insurances')" class="btn-buzz font-bold text-sm px-4 py-2 rounded-xl transition">
+                            📥 匯出 CSV 數據
+                        </button>
+                        <button type="submit" class="btn-woody font-black text-sm px-6 py-2 rounded-xl transition">
+                            儲存保險紀錄
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-6 overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm font-bold">
+                        <thead>
+                            <tr class="bg-blue-50 text-blue-900 border-b-2 border-blue-200">
+                                <th class="py-3 px-4">保險公司</th>
+                                <th class="py-3 px-4">保險計劃</th>
+                                <th class="py-3 px-4">性質</th>
+                                <th class="py-3 px-4">繳費模式</th>
+                                <th class="py-3 px-4">日期</th>
+                                <th class="py-3 px-4">繳費金額</th>
+                                <th class="py-3 px-4 text-right">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="insuranceTableBody" class="divide-y divide-slate-100"></tbody>
+                    </table>
+                </div>
+
+                <div id="insShowAllContainer" class="mt-4 text-center hidden">
+                    <button id="insShowAllBtn" onclick="toggleShowAll('insurances')" class="text-sm font-black text-blue-600 hover:underline">
+                        顯示全部紀錄 ↓
+                    </button>
+                </div>
+            </section>
+
+            <!-- SECTION 3: 定期存款 -->
+            <section class="bg-white rounded-2xl p-6 ts-card">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b-4 border-dashed border-blue-200 pb-4 mb-6 gap-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-3xl">🏦</span>
+                        <h2 class="text-2xl font-black text-blue-900">定期存款</h2>
+                    </div>
+                    <div class="flex items-center space-x-1.5 bg-yellow-50 p-2 rounded-xl border border-yellow-200">
+                        <label class="text-xs font-black text-amber-800">年份篩選:</label>
+                        <select id="depYearFilter" onchange="renderDepositTable()" class="text-xs border-2 border-blue-300 rounded-lg px-2 py-1 bg-white font-bold focus:outline-none">
+                            <option value="all">全部年份</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <form id="depositForm" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-4 items-end bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">銀行</label>
+                        <input type="text" id="depBank" required class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">起息日期</label>
+                        <input type="date" id="depDate" required class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">定期時長</label>
+                        <select id="depDuration" onchange="calculateDeposit()" class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold bg-white">
+                            <option value="3個月">3個月</option>
+                            <option value="6個月">6個月</option>
+                            <option value="1年">1年</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">本金 (HKD)</label>
+                        <input type="number" id="depPrincipal" min="0" step="any" required oninput="calculateDeposit()" class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">年利率 (%)</label>
+                        <input type="number" id="depRate" min="0" max="100" step="0.01" required oninput="calculateDeposit()" placeholder="e.g. 3.5" class="w-full px-3 py-2 border-2 border-blue-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">預估利息 (自動)</label>
+                        <input type="text" id="depInterest" readonly class="w-full px-3 py-2 bg-slate-100 border-2 border-slate-200 rounded-lg text-sm font-bold text-orange-600">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1">最終可得</label>
+                        <input type="text" id="depFinal" readonly class="w-full px-3 py-2 bg-slate-100 border-2 border-slate-200 rounded-lg text-sm font-black text-blue-700">
+                    </div>
+                    <div class="md:col-span-3 lg:col-span-7 flex justify-end gap-3 mt-2">
+                        <button type="button" onclick="exportCSV('deposits')" class="btn-buzz font-bold text-sm px-4 py-2 rounded-xl transition">
+                            📥 匯出 CSV 數據
+                        </button>
+                        <button type="submit" class="btn-woody font-black text-sm px-6 py-2 rounded-xl transition">
+                            儲存定期紀錄
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-6 overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm font-bold">
+                        <thead>
+                            <tr class="bg-blue-50 text-blue-900 border-b-2 border-blue-200">
+                                <th class="py-3 px-4">銀行</th>
+                                <th class="py-3 px-4">日期</th>
+                                <th class="py-3 px-4">定期時長</th>
+                                <th class="py-3 px-4">本金</th>
+                                <th class="py-3 px-4">年利率</th>
+                                <th class="py-3 px-4 text-orange-600">利息</th>
+                                <th class="py-3 px-4">最終可得</th>
+                                <th class="py-3 px-4 text-right">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="depositTableBody" class="divide-y divide-slate-100"></tbody>
+                    </table>
+                </div>
+
+                <div id="depShowAllContainer" class="mt-4 text-center hidden">
+                    <button id="depShowAllBtn" onclick="toggleShowAll('deposits')" class="text-sm font-black text-blue-600 hover:underline">
+                        顯示全部紀錄 ↓
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- JavaScript For Multi-User Auths, Calculations and Isolation -->
+    <script>
+        // --- 1. Multi-User Authentication Engine ---
+        let currentAuthMode = 'login'; // 'login' or 'register'
+        let activeUser = null;
+
+        function switchAuthMode(mode) {
+            currentAuthMode = mode;
+            const tabLogin = document.getElementById('tabLogin');
+            const tabRegister = document.getElementById('tabRegister');
+            const submitAuthBtn = document.getElementById('submitAuthBtn');
+            const errorMsg = document.getElementById('errorMsg');
+
+            errorMsg.classList.add('hidden');
+
+            if (mode === 'login') {
+                tabLogin.className = "text-xl font-black text-blue-900 border-b-4 border-blue-600 pb-1 px-4";
+                tabRegister.className = "text-xl font-black text-slate-400 pb-1 px-4 hover:text-blue-900 transition";
+                submitAuthBtn.innerHTML = "確認登入 🔓";
+            } else {
+                tabRegister.className = "text-xl font-black text-blue-900 border-b-4 border-blue-600 pb-1 px-4";
+                tabLogin.className = "text-xl font-black text-slate-400 pb-1 px-4 hover:text-blue-900 transition";
+                submitAuthBtn.innerHTML = "註冊新帳戶並登入 🌟";
+            }
+        }
+
+        // Get list of registered users: format { username: password }
+        function getRegisteredUsers() {
+            const users = localStorage.getItem('toy_story_users_list');
+            return users ? JSON.parse(users) : {};
+        }
+
+        function handleAuthAction() {
+            const usernameInput = document.getElementById('usernameInput').value.trim();
+            const passwordInput = document.getElementById('passwordInput').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (!usernameInput || !passwordInput) {
+                showAuthError("請輸入用戶名稱與密碼！");
+                return;
+            }
+
+            const users = getRegisteredUsers();
+
+            if (currentAuthMode === 'login') {
+                // Login Flow
+                if (users[usernameInput] && users[usernameInput] === passwordInput) {
+                    errorMsg.classList.add('hidden');
+                    loginSuccess(usernameInput);
+                } else {
+                    showAuthError("⚠️ 用戶名稱或密碼錯誤喔，再試一次！");
+                }
+            } else {
+                // Register Flow
+                if (users[usernameInput]) {
+                    showAuthError("⚠️ 該帳號名稱已被註冊");
+                } else {
+                    users[usernameInput] = passwordInput;
+                    localStorage.setItem('toy_story_users_list', JSON.stringify(users));
+                    alert(`🎉 恭喜！用戶 [ ${usernameInput} ] 註冊成功！`);
+                    errorMsg.classList.add('hidden');
+                    loginSuccess(usernameInput);
+                }
+            }
+        }
+
+        function showAuthError(msg) {
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.textContent = msg;
+            errorMsg.classList.remove('hidden');
+        }
+
+        function loginSuccess(username) {
+            activeUser = username;
+            document.getElementById('currentUserDisplay').textContent = username;
+            
+            // Switch layouts
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('mainDashboard').classList.remove('hidden');
+            
+            // Load user specific isolated databases
+            loadUserRecords();
+        }
+
+        function handleLogout() {
+            activeUser = null;
+            document.getElementById('usernameInput').value = "";
+            document.getElementById('passwordInput').value = "";
+            document.getElementById('mainDashboard').classList.add('hidden');
+            document.getElementById('loginScreen').classList.remove('hidden');
+            switchAuthMode('login');
+        }
+
+
+        // --- 2. Isolated User Storage Engine ---
+
+        let records = { incomes: [], insurances: [], deposits: [] };
+        let viewState = {
+            incomes: { showAll: false, editIndex: null },
+            insurances: { showAll: false, editIndex: null },
+            deposits: { showAll: false, editIndex: null }
+        };
+
+        function loadUserRecords() {
+            const isolatedKey = `toy_story_records_${activeUser}`;
+            const storedData = localStorage.getItem(isolatedKey);
+            if (storedData) {
+                records = JSON.parse(storedData);
+                sortAllRecordsByDate();
+            } else {
+                // Initialize clean database for new user
+                records = { incomes: [], insurances: [], deposits: [] };
+            }
+            
+            // Reset filters & views
+            viewState.incomes.editIndex = null;
+            viewState.insurances.editIndex = null;
+            viewState.deposits.editIndex = null;
+            
+            document.getElementById('incYearFilter').value = 'all';
+            document.getElementById('insYearFilter').value = 'all';
+            document.getElementById('depYearFilter').value = 'all';
+
+            populateYearFilters();
+            renderAllTables();
+            updateIncomeSummary();
+        }
+
+        function saveData() {
+            sortAllRecordsByDate();
+            const isolatedKey = `toy_story_records_${activeUser}`;
+            localStorage.setItem(isolatedKey, JSON.stringify(records));
+            populateYearFilters();
+            renderAllTables();
+            updateIncomeSummary();
+        }
+
+
+        // --- 3. Dynamic Auto Calculations ---
+
+        function calculateIncome() {
+            const base = parseFloat(document.getElementById('incBase').value) || 0;
+            const bonus = parseFloat(document.getElementById('incBonus').value) || 0;
+            const mpf = base * 0.05;
+            const final = base + bonus - mpf;
+
+            document.getElementById('incMpf').value = mpf.toFixed(2);
+            document.getElementById('incFinal').value = final.toFixed(2);
+        }
+
+        function calculateDeposit() {
+            const principal = parseFloat(document.getElementById('depPrincipal').value) || 0;
+            const ratePercent = parseFloat(document.getElementById('depRate').value) || 0;
+            const duration = document.getElementById('depDuration').value;
+
+            const rate = ratePercent / 100;
+            let timeFactor = duration === "3個月" ? 0.25 : (duration === "6個月" ? 0.5 : 1.0);
+
+            const finalAmount = principal * (1 + (rate * timeFactor));
+            const interest = finalAmount - principal;
+
+            document.getElementById('depInterest').value = interest.toFixed(2);
+            document.getElementById('depFinal').value = finalAmount.toFixed(2);
+        }
+
+
+        // --- 4. Sort & Pagination State Helpers ---
+
+        window.onload = function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('incDate').value = today;
+            document.getElementById('insDate').value = today;
+            document.getElementById('depDate').value = today;
+        };
+
+        function sortAllRecordsByDate() {
+            records.incomes.sort((a, b) => new Date(b.date) - new Date(a.date));
+            records.insurances.sort((a, b) => new Date(b.date) - new Date(a.date));
+            records.deposits.sort((a, b) => new Date(b.date) - new Date(a.date));
+        }
+
+        function populateYearFilters() {
+            const getYears = (arr) => [...new Set(arr.map(item => new Date(item.date).getFullYear()))].sort((a,b)=>b-a);
+            
+            ['inc', 'ins', 'dep'].forEach(prefix => {
+                const select = document.getElementById(`${prefix}YearFilter`);
+                const currentVal = select.value;
+                select.innerHTML = '<option value="all">全部年份</option>';
+                
+                let targetArr = prefix === 'inc' ? records.incomes : (prefix === 'ins' ? records.insurances : records.deposits);
+                getYears(targetArr).forEach(year => {
+                    if(!isNaN(year)) select.innerHTML += `<option value="${year}">${year}年</option>`;
+                });
+                select.value = currentVal; 
+            });
+        }
+
+        function toggleShowAll(category) {
+            viewState[category].showAll = !viewState[category].showAll;
+            renderAllTables();
+        }
+
+
+        // --- 5. Dynamic Tables rendering & Inline Editing ---
+
+        function renderIncomeTable() {
+            const tbody = document.getElementById('incomeTableBody');
+            const container = document.getElementById('incShowAllContainer');
+            const btn = document.getElementById('incShowAllBtn');
+            const yearFilter = document.getElementById('incYearFilter').value;
+            tbody.innerHTML = '';
+
+            let filteredList = records.incomes.filter(item => {
+                if (yearFilter === 'all') return true;
+                return new Date(item.date).getFullYear().toString() === yearFilter;
+            });
+
+            const limit = 5;
+            const displayList = viewState.incomes.showAll ? filteredList : filteredList.slice(0, limit);
+
+            displayList.forEach((item) => {
+                const actualIndex = records.incomes.indexOf(item);
+                
+                if (viewState.incomes.editIndex === actualIndex) {
+                    tbody.innerHTML += `
+                        <tr class="bg-yellow-50 border-2 border-yellow-400">
+                            <td class="p-2"><input type="text" id="editIncComp" value="${item.company}" class="w-full px-2 py-1 border rounded text-xs"></td>
+                            <td class="p-2"><input type="date" id="editIncDate" value="${item.date}" class="w-full px-2 py-1 border rounded text-xs"></td>
+                            <td class="p-2"><input type="number" id="editIncBase" value="${item.base}" oninput="calcInlineInc()" class="w-full px-2 py-1 border rounded text-xs"></td>
+                            <td class="p-2"><input type="number" id="editIncBonus" value="${item.bonus}" oninput="calcInlineInc()" class="w-full px-2 py-1 border rounded text-xs"></td>
+                            <td class="p-2 text-slate-500 text-xs" id="editIncMpf">-$${parseFloat(item.mpf).toFixed(2)}</td>
+                            <td class="p-2 text-blue-700 font-bold text-xs" id="editIncFinal">$${parseFloat(item.final).toFixed(2)}</td>
+                            <td class="p-2 text-right space-x-1">
+                                <button onclick="saveInlineEdit('incomes', ${actualIndex})" class="text-green-600 hover:text-green-800 font-black">儲存</button>
+                                <button onclick="cancelInlineEdit('incomes')" class="text-slate-500 hover:text-slate-700 font-black">取消</button>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="py-3 px-4 text-slate-700">${item.company}</td>
+                            <td class="py-3 px-4 text-slate-500">${item.date}</td>
+                            <td class="py-3 px-4">$${parseFloat(item.base).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                            <td class="py-3 px-4">$${parseFloat(item.bonus).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                            <td class="py-3 px-4 text-red-500">-$${parseFloat(item.mpf).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                            <td class="py-3 px-4 font-black text-blue-700">$${parseFloat(item.final).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                            <td class="py-3 px-4 text-right space-x-2">
+                                <button onclick="startInlineEdit('incomes', ${actualIndex})" class="text-amber-600 hover:text-amber-800 font-black">編輯</button>
+                                <button onclick="deleteRecord('incomes', ${actualIndex})" class="text-red-500 hover:text-red-700 font-black">刪除</button>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+
+            if (filteredList.length > limit) {
+                container.classList.remove('hidden');
+                btn.textContent = viewState.incomes.showAll ? `收起紀錄 ↑` : `顯示全部紀錄 (共 ${filteredList.length} 筆) ↓`;
+            } else {
+                container.classList.add('hidden');
+            }
+        }
+
+        function calcInlineInc() {
+            const base = parseFloat(document.getElementById('editIncBase').value) || 0;
+            const bonus = parseFloat(document.getElementById('editIncBonus').value) || 0;
+            document.getElementById('editIncMpf').textContent = `-$${(base * 0.05).toFixed(2)}`;
+            document.getElementById('editIncFinal').textContent = `$${(base + bonus - (base * 0.05)).toFixed(2)}`;
+        }
+
+        function renderInsuranceTable() {
+            const tbody = document.getElementById('insuranceTableBody');
+            const container = document.getElementById('insShowAllContainer');
+            const btn = document.getElementById('insShowAllBtn');
+            const yearFilter = document.getElementById('insYearFilter').value;
+            tbody.innerHTML = '';
+
+            let filteredList = records.insurances.filter(item => {
+                if (yearFilter === 'all') return true;
+                return new Date(item.date).getFullYear().toString() === yearFilter;
+            });
+
+            const limit = 5;
+            const displayList = viewState.insurances.showAll ? filteredList : filteredList.slice(0, limit);
+
+            displayList.forEach((item) => {
+                const actualIndex = records.insurances.indexOf(item);
+                
+                if (viewState.insurances.editIndex === actualIndex) {
+                    tbody.innerHTML += `
+                        <tr class="bg-yellow-50 border-2 border-yellow-400">
+                            <td class="p-2">
+                                <select id="editInsComp" class="w-full px-1 py-1 border rounded text-xs">
+                                    <option value="FWD富衛保險" ${item.company==='FWD富衛保險'?'selected':''}>FWD富衛保險</option>
+                                    <option value="Bowtie" ${item.company==='Bowtie'?'selected':''}>Bowtie</option>
+                                    <option value="Manulife宏利" ${item.company==='Manulife宏利'?'selected':''}>Manulife宏利</option>
+                                    <option value="保誠Prudential" ${item.company==='保誠Prudential'?'selected':''}>保誠Prudential</option>
+                                </select>
+                            </td>
+                            <td class="p-2"><input type="text" id="editInsPlan" value="${item.plan}" class="w-full px-2 py-1 border rounded text-xs"></td>
+                            <td class="p-2">
+                                <select id="editInsType" class="w-full px-1 py-1 border rounded text-xs">
+                                    <option value="自願醫保" ${item.type==='自願醫保'?'selected':''}>自願醫保</option>
+                                    <option value="危疾" ${item.type==='危疾'?'selected':''}>危疾</option>
+                                </select>
+                            </td>
+                            <td class="p-2">
+                                <select id="editInsMode" class="w-full px-1 py-1 border rounded text-xs">
+                                    <option value="年繳" ${item.mode==='年繳'?'selected':''}>年繳</option>
+                                    <option value="月繳" ${item.mode==='月繳'?'selected':''}>月繳</option>
+                                </select>
+                            </td>
+                            <td class="p-2"><input type="date" id="editInsDate" value="${item.date}" class="w-full px-2 py-1 border rounded text-xs"></td>
+                            <td class="p-2"><input type="number" id="editInsAmount" value="${item.amount}" class="w-full px-2 py-1 border rounded text-xs"></td>
+                            <td class="p-2 text-right space-x-1">
+                                <button onclick="saveInlineEdit('insurances', ${actualIndex})" class="text-green-600 hover:text-green-800 font-black">儲存</button>
+                                <button onclick="cancelInlineEdit('insurances')" class="text-slate-500 hover:text-slate-700 font-black">取消</button>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    const tagColor = item.type === "自願醫保" ? "bg-blue-100 text-blue-800 border border-blue-300" : "bg-purple-100 text-purple-800 border border-purple-300";
+                    const modeColor = item.mode === "年繳" ? "bg-amber-100 text-amber-800" : "bg-orange-100 text-orange-800";
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="py-3 px-4 text-slate-800 font-black">${item.company}</td>
+                            <td class="py-3 px-4 text-slate-600">${item.plan}</td>
+                            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-lg text-xs ${tagColor}">${item.type}</span></td>
+                            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-lg text-xs font-bold ${modeColor}">${item.mode}</span></td>
+                            <td class="py-3 px-4 text-slate-500">${item.date}</td>
+                            <td class="py-3 px-4 font-black text-slate-900">$${parseFloat(item.amount).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                            <td class="py-3 px-4 text-right space-x-2">
+                                <button onclick="startInlineEdit('insurances', ${actualIndex})" class="text-amber-600 hover:text-amber-800 font-black">編輯</button>
+                                <button onclick="deleteRecord('insurances', ${actualIndex})" class="text-red-500 hover:text-red-700 font-black">刪除</button>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+
+            if (filteredList.length > limit) {
+                container.classList.remove('hidden');
+                btn.textContent = viewState.insurances.showAll ? `收起紀錄 ↑` : `顯示全部紀錄 (共 ${filteredList.length} 筆) ↓`;
+            } else {
+                container.classList.add('hidden');
+            }
+        }
+
+        function renderDepositTable() {
+            const tbody = document.getElementById('depositTableBody');
+            const container = document.getElementById('depShowAllContainer');
+            const btn = document.getElementById('depShowAllBtn');
+            const yearFilter = document.getElementById('depYearFilter').value;
+            tbody.innerHTML = '';
+
+            let filteredList = records.deposits.filter(item => {
+                if (yearFilter === 'all') return true;
+                return new Date(item.date).getFullYear().toString() === yearFilter;
+            });
+
+            const limit = 5;
+            const displayList = viewState.deposits.showAll ? filteredList : filteredList.slice(0, limit);
+
+            displayList.forEach((item) => {
+                const actualIndex = records.deposits.indexOf(item);
+                
+                if (viewState.deposits.editIndex === actualIndex) {
+                    tbody.innerHTML += `
+                        <tr class="bg-yellow-50 border-2 border-yellow-400">
+                            <td class="p-2"><input type="text" id="editDepBank" value="${item.bank}" class="w-full px-2 py-1 border rounded text-xs"></td>
+                            <td class="p-2"><input type="date" id="editDepDate" value="${item.date}" class="w-full px-2 py-1 border rounded text-xs"></td>
+                            <td class="p-2">
+                                <select id="editDepDur" onchange="calcInlineDep()" class="w-full px-1 py-1 border rounded text-xs">
+                                    <option value="3個月" ${item.duration==='3個月'?'selected':''}>3個月</option>
+                                    <option value="6個月" ${item.duration==='6個月'?'selected':''}>6個月</option>
+                                    <option value="1年" ${item.duration==='1年'?'selected':''}>1年</option>
+                                </select>
+                            </td>
+                            <td class="p-2"><input type="number" id="editDepPri" value="${item.principal}" oninput="calcInlineDep()" class="w-full px-2 py-1 border rounded text-xs"></td>
+                            <td class="p-2"><input type="number" id="editDepRate" value="${item.rate}" oninput="calcInlineDep()" class="w-full px-2 py-1 border rounded text-xs"></td>
+                            <td class="p-2 text-orange-600 font-bold text-xs" id="editDepInt">$${parseFloat(item.interest || 0).toFixed(2)}</td>
+                            <td class="p-2 text-blue-700 font-bold text-xs" id="editDepFin">$${parseFloat(item.final).toFixed(2)}</td>
+                            <td class="p-2 text-right space-x-1">
+                                <button onclick="saveInlineEdit('deposits', ${actualIndex})" class="text-green-600 hover:text-green-800 font-black">儲存</button>
+                                <button onclick="cancelInlineEdit('deposits')" class="text-slate-500 hover:text-slate-700 font-black">取消</button>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    const interestAmount = parseFloat(item.interest) || (parseFloat(item.final) - parseFloat(item.principal));
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="py-3 px-4 text-slate-700">${item.bank}</td>
+                            <td class="py-3 px-4 text-slate-500">${item.date}</td>
+                            <td class="py-3 px-4"><span class="bg-amber-100 text-amber-900 px-2 py-0.5 rounded-lg border border-amber-300 text-xs">${item.duration}</span></td>
+                            <td class="py-3 px-4">$${parseFloat(item.principal).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                            <td class="py-3 px-4">${item.rate}%</td>
+                            <td class="py-3 px-4 font-bold text-orange-600">$${interestAmount.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                            <td class="py-3 px-4 font-black text-blue-700">$${parseFloat(item.final).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                            <td class="py-3 px-4 text-right space-x-2">
+                                <button onclick="startInlineEdit('deposits', ${actualIndex})" class="text-amber-600 hover:text-amber-800 font-black">編輯</button>
+                                <button onclick="deleteRecord('deposits', ${actualIndex})" class="text-red-500 hover:text-red-700 font-black">刪除</button>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+
+            if (filteredList.length > limit) {
+                container.classList.remove('hidden');
+                btn.textContent = viewState.deposits.showAll ? `收起紀錄 ↑` : `顯示全部紀錄 (共 ${filteredList.length} 筆) ↓`;
+            } else {
+                container.classList.add('hidden');
+            }
+        }
+
+        function calcInlineDep() {
+            const principal = parseFloat(document.getElementById('editDepPri').value) || 0;
+            const ratePercent = parseFloat(document.getElementById('editDepRate').value) || 0;
+            const duration = document.getElementById('editDepDur').value;
+            const rate = ratePercent / 100;
+            let tf = duration === "3個月" ? 0.25 : (duration === "6個月" ? 0.5 : 1.0);
+
+            const fin = principal * (1 + (rate * tf));
+            const intAmt = fin - principal;
+            document.getElementById('editDepInt').textContent = `$${intAmt.toFixed(2)}`;
+            document.getElementById('editDepFin').textContent = `$${fin.toFixed(2)}`;
+        }
+
+        function renderAllTables() {
+            renderIncomeTable();
+            renderInsuranceTable();
+            renderDepositTable();
+        }
+
+
+        // --- 6. Inline Edit Form Submission ---
+
+        function startInlineEdit(category, index) {
+            viewState[category].editIndex = index;
+            renderAllTables();
+        }
+
+        function cancelInlineEdit(category) {
+            viewState[category].editIndex = null;
+            renderAllTables();
+        }
+
+        function saveInlineEdit(category, index) {
+            if (category === 'incomes') {
+                const base = parseFloat(document.getElementById('editIncBase').value) || 0;
+                const bonus = parseFloat(document.getElementById('editIncBonus').value) || 0;
+                const mpf = base * 0.05;
+                records.incomes[index] = {
+                    company: document.getElementById('editIncComp').value,
+                    date: document.getElementById('editIncDate').value,
+                    base: base,
+                    bonus: bonus,
+                    mpf: mpf,
+                    final: base + bonus - mpf
+                };
+            } else if (category === 'insurances') {
+                records.insurances[index] = {
+                    company: document.getElementById('editInsComp').value,
+                    plan: document.getElementById('editInsPlan').value,
+                    type: document.getElementById('editInsType').value,
+                    mode: document.getElementById('editInsMode').value,
+                    date: document.getElementById('editInsDate').value,
+                    amount: parseFloat(document.getElementById('editInsAmount').value) || 0
+                };
+            } else if (category === 'deposits') {
+                const principal = parseFloat(document.getElementById('editDepPri').value) || 0;
+                const ratePercent = parseFloat(document.getElementById('editDepRate').value) || 0;
+                const duration = document.getElementById('editDepDur').value;
+                let tf = duration === "3個月" ? 0.25 : (duration === "6個月" ? 0.5 : 1.0);
+                const final = principal * (1 + ((ratePercent / 100) * tf));
+                
+                records.deposits[index] = {
+                    bank: document.getElementById('editDepBank').value,
+                    date: document.getElementById('editDepDate').value,
+                    duration: duration,
+                    principal: principal,
+                    rate: ratePercent,
+                    interest: final - principal,
+                    final: final
+                };
+            }
+            viewState[category].editIndex = null;
+            saveData();
+        }
+
+
+        // --- 7. Range Summary Filter ---
+
+        function updateIncomeSummary() {
+            const range = document.getElementById('incomeTimeRange').value;
+            const today = new Date();
+            let sum = 0;
+
+            records.incomes.forEach(item => {
+                const itemDate = new Date(item.date);
+                let matches = false;
+
+                if (range === 'all') matches = true;
+                else if (range === 'thisMonth') matches = itemDate.getFullYear() === today.getFullYear() && itemDate.getMonth() === today.getMonth();
+                else if (range === 'thisYear') matches = itemDate.getFullYear() === today.getFullYear();
+                else if (range === '3months') {
+                    const cutoff = new Date(); cutoff.setMonth(today.getMonth() - 3);
+                    matches = itemDate >= cutoff && itemDate <= today;
+                } else if (range === '6months') {
+                    const cutoff = new Date(); cutoff.setMonth(today.getMonth() - 6);
+                    matches = itemDate >= cutoff && itemDate <= today;
+                }
+
+                if (matches) sum += parseFloat(item.final) || 0;
+            });
+            document.getElementById('summaryTotal').textContent = `$${sum.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+        }
+
+
+        // --- 8. Export to CSV (With UTF-8 BOM protection) ---
+
+        function exportCSV(category) {
+            const list = records[category];
+            if (!list || list.length === 0) {
+                alert('目前沒有資料可以匯出。');
+                return;
+            }
+
+            let csvContent = "";
+            let fileName = "";
+
+            if (category === 'incomes') {
+                csvContent += "公司名稱,日期,基本薪金,花紅_獎金,強積金(5%),最終收入\n";
+                list.forEach(item => csvContent += `"${item.company}","${item.date}",${item.base},${item.bonus},${item.mpf},${item.final}\n`);
+                fileName = `${activeUser}_ToyStory_個人收入紀錄.csv`;
+            } else if (category === 'insurances') {
+                csvContent += "保險公司,保險計劃,性質,繳費模式,日期,繳費金額\n";
+                list.forEach(item => csvContent += `"${item.company}","${item.plan}","${item.type}","${item.mode}","${item.date}",${item.amount}\n`);
+                fileName = `${activeUser}_ToyStory_個人保險紀錄.csv`;
+            } else if (category === 'deposits') {
+                csvContent += "銀行,起息日期,定期時長,本金,年利率(%),利息,最終可得\n";
+                list.forEach(item => {
+                    const interest = item.interest || (item.final - item.principal);
+                    csvContent += `"${item.bank}","${item.date}","${item.duration}",${item.principal},${item.rate},${interest.toFixed(2)},${item.final}\n`;
+                });
+                fileName = `${activeUser}_ToyStory_定期存款紀錄.csv`;
+            }
+
+            const blob = new Blob(["\ufeff" + csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", fileName);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+
+        // --- 9. Standard Submission Listeners ---
+
+        document.getElementById('incomeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const base = parseFloat(document.getElementById('incBase').value);
+            const bonus = parseFloat(document.getElementById('incBonus').value);
+            const mpf = base * 0.05;
+
+            records.incomes.push({
+                company: document.getElementById('incCompany').value,
+                date: document.getElementById('incDate').value,
+                base: base,
+                bonus: bonus,
+                mpf: mpf,
+                final: base + bonus - mpf
+            });
+
+            saveData();
+            this.reset();
+            document.getElementById('incDate').value = new Date().toISOString().split('T')[0];
+        });
+
+        document.getElementById('insuranceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            records.insurances.push({
+                company: document.getElementById('insCompany').value,
+                plan: document.getElementById('insPlan').value,
+                type: document.getElementById('insType').value,
+                mode: document.getElementById('insMode').value,
+                date: document.getElementById('insDate').value,
+                amount: parseFloat(document.getElementById('insAmount').value)
+            });
+
+            saveData();
+            this.reset();
+            document.getElementById('insDate').value = new Date().toISOString().split('T')[0];
+        });
+
+        document.getElementById('depositForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateDeposit(); 
+            const principal = parseFloat(document.getElementById('depPrincipal').value);
+            const final = parseFloat(document.getElementById('depFinal').value);
+
+            records.deposits.push({
+                bank: document.getElementById('depBank').value,
+                date: document.getElementById('depDate').value,
+                duration: document.getElementById('depDuration').value,
+                principal: principal,
+                rate: parseFloat(document.getElementById('depRate').value),
+                interest: final - principal,
+                final: final
+            });
+
+            saveData();
+            this.reset();
+            document.getElementById('depDate').value = new Date().toISOString().split('T')[0];
+        });
+
+        function deleteRecord(category, index) {
+            if (confirm('確定要刪除這筆紀錄嗎？')) {
+                records[category].splice(index, 1);
+                saveData();
+            }
+        }
+    </script>
+</body>
+</html>
