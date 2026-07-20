@@ -9,114 +9,107 @@
     <style>
         body {
             font-family: "PingFang HK", "Helvetica Neue", Arial, sans-serif;
-            background-color: #FFF7F3; /* Retro Hong Kong Milk Tea Pink Cream */
+            background-color: #F0F7FF; /* Soft Light Blue Background */
         }
-        /* McDull Nostalgic Comic Style */
+        /* Hand-drawn Outline Light Blue Style */
         .md-border {
-            border: 2.5px solid #4a3328;
+            border: 2.5px solid #1E293B;
         }
         .md-card {
             background-color: #FFFFFF;
-            border: 2.5px solid #4a3328;
-            box-shadow: 5px 5px 0px #4a3328;
+            border: 2.5px solid #1E293B;
+            box-shadow: 5px 5px 0px #1E293B;
             border-radius: 24px;
         }
         .btn-pink {
-            background-color: #fbc7c7; /* McDull Pink */
-            color: #4a3328;
-            border: 2.5px solid #4a3328;
-            box-shadow: 2px 2px 0px #4a3328;
+            background-color: #BAE6FD; /* Soft Light Sky Blue */
+            color: #0F172A;
+            border: 2.5px solid #1E293B;
+            box-shadow: 2px 2px 0px #1E293B;
             border-radius: 14px;
             font-weight: 900;
         }
         .btn-pink:hover {
-            background-color: #fca5a5;
+            background-color: #7DD3FC;
             transform: translate(1px, 1px);
-            box-shadow: 1px 1px 0px #4a3328;
+            box-shadow: 1px 1px 0px #1E293B;
         }
         .btn-green {
-            background-color: #a3ebd0; /* Chun Tin Flower Green */
-            color: #4a3328;
-            border: 2.5px solid #4a3328;
-            box-shadow: 2px 2px 0px #4a3328;
+            background-color: #A7F3D0; /* Mint Blue Green */
+            color: #0F172A;
+            border: 2.5px solid #1E293B;
+            box-shadow: 2px 2px 0px #1E293B;
             border-radius: 14px;
             font-weight: 900;
         }
         .btn-green:hover {
-            background-color: #7ce0bc;
+            background-color: #6EE7B7;
             transform: translate(1px, 1px);
-            box-shadow: 1px 1px 0px #4a3328;
+            box-shadow: 1px 1px 0px #1E293B;
         }
         .btn-yellow {
-            background-color: #ffe17d; /* Egg Tart Yellow */
-            color: #4a3328;
-            border: 2.5px solid #4a3328;
-            box-shadow: 2px 2px 0px #4a3328;
+            background-color: #E0F2FE; /* Very Light Ice Blue */
+            color: #0F172A;
+            border: 2.5px solid #1E293B;
+            box-shadow: 2px 2px 0px #1E293B;
             border-radius: 14px;
             font-weight: 900;
         }
         .btn-yellow:hover {
-            background-color: #fcd34d;
+            background-color: #BAE6FD;
         }
         .btn-gray {
-            background-color: #FAF4EE;
-            color: #4a3328;
-            border: 2.5px solid #4a3328;
-            box-shadow: 2px 2px 0px #4a3328;
+            background-color: #F1F5F9;
+            color: #0F172A;
+            border: 2.5px solid #1E293B;
+            box-shadow: 2px 2px 0px #1E293B;
             border-radius: 14px;
             font-weight: 900;
         }
         .btn-gray:hover {
-            background-color: #EFE4D8;
+            background-color: #E2E8F0;
         }
-        /* McDull Inputs border focus */
+        /* Light Blue Inputs border focus */
         input:focus, select:focus {
-            border-color: #fbc7c7 !important;
+            border-color: #38BDF8 !important;
             outline: none;
         }
     </style>
 </head>
-<body class="min-h-screen text-[#4a3328] pb-20">
+<body class="min-h-screen text-[#0F172A] pb-20">
 
-    <!-- 1. MCDULL LOGIN / REGISTER SCREEN -->
-    <div id="loginScreen" class="fixed inset-0 bg-[#FFF7F3] z-50 flex flex-col justify-center items-center px-4">
-        <!-- Nostalgic Hong Kong Doodles backdrop simulation -->
+    <!-- 1. LOGIN / REGISTER SCREEN -->
+    <div id="loginScreen" class="fixed inset-0 bg-[#F0F7FF] z-50 flex flex-col justify-center items-center px-4">
         <div class="absolute inset-0 opacity-10 pointer-events-none flex flex-wrap content-around justify-around p-10 select-none">
-            <span class="text-7xl">🐷</span>
-            <span class="text-6xl">🌸</span>
-            <span class="text-7xl">🥯</span>
-            <span class="text-8xl">🍳</span>
         </div>
         
-        <div class="bg-white p-8 rounded-3xl max-w-sm w-full md-border shadow-[8px_8px_0px_#4a3328] text-center relative z-10">
-            <div class="text-5xl mb-3">🐷</div>
-            <h2 id="loginTitle" class="text-2xl font-black mb-1 text-[#4a3328]">我嘅財務管理系統</h2>
+        <div class="bg-white p-8 rounded-3xl max-w-sm w-full md-border shadow-[8px_8px_0px_#1E293B] text-center relative z-10">
+            <h2 id="loginTitle" class="text-2xl font-black mb-1 text-[#0F172A]">我嘅財務管理系統</h2>
             
-            <!-- Auth Tab Switcher -->
-            <div class="flex justify-center space-x-2 mb-6 bg-[#FAF4EE] p-1 rounded-2xl md-border">
-                <button id="tabLogin" onclick="switchAuthMode('login')" class="flex-1 py-1.5 text-xs font-black rounded-xl bg-white border-2 border-[#4a3328]">
-                    返黎登入
+            <div class="flex justify-center space-x-2 mb-6 bg-[#F8FAFC] p-1 rounded-2xl md-border">
+                <button id="tabLogin" type="button" onclick="switchAuthMode('login')" class="flex-1 py-1.5 text-xs font-black rounded-xl bg-white border-2 border-[#1E293B]">
+                    返嚟登入
                 </button>
-                <button id="tabRegister" onclick="switchAuthMode('register')" class="flex-1 py-1.5 text-xs font-black rounded-xl text-slate-500 hover:text-[#4a3328]">
-                    新帳戶註冊
+                <button id="tabRegister" type="button" onclick="switchAuthMode('register')" class="flex-1 py-1.5 text-xs font-black rounded-xl text-slate-500 hover:text-[#0F172A]">
+                    新用戶註冊
                 </button>
             </div>
 
-            <!-- Inputs -->
-            <div class="space-y-4 text-left">
+            <!-- 表單支援 Enter 鍵提交 -->
+            <form id="authForm" onsubmit="event.preventDefault(); handleAuthAction();" class="space-y-4 text-left">
                 <div>
                     <label class="block text-xs font-extrabold text-slate-600 mb-1">你嘅名 (Username)</label>
-                    <input type="text" id="usernameInput" placeholder="請輸入你嘅名" class="w-full px-3 py-2 border-2 border-[#4a3328] rounded-xl font-bold text-sm bg-[#FFF7F3]">
+                    <input type="text" id="usernameInput" placeholder="請輸入你嘅名" class="w-full px-3 py-2 border-2 border-[#1E293B] rounded-xl font-bold text-sm bg-[#F0F7FF]">
                 </div>
                 <div>
                     <label class="block text-xs font-extrabold text-slate-600 mb-1">密碼 (Password)</label>
-                    <input type="password" id="passwordInput" placeholder="請輸入密碼" class="w-full px-3 py-2 border-2 border-[#4a3328] rounded-xl font-bold text-sm bg-[#FFF7F3]">
+                    <input type="password" id="passwordInput" placeholder="請輸入密碼" class="w-full px-3 py-2 border-2 border-[#1E293B] rounded-xl font-bold text-sm bg-[#F0F7FF]">
                 </div>
 
-                <button id="submitAuthBtn" onclick="handleAuthAction()" class="w-full btn-pink font-bold text-sm py-2.5 transition mt-4">
+                <button id="submitAuthBtn" type="submit" class="w-full btn-pink font-bold text-sm py-2.5 transition mt-4">
                     開嚟見我！
                 </button>
-            </div>
+            </form>
             
             <p id="errorMsg" class="text-red-500 text-xs font-black mt-4 text-center hidden"></p>
         </div>
@@ -124,22 +117,23 @@
 
     <!-- 2. MAIN DASHBOARD INTERFACE (Hidden by default) -->
     <div id="mainDashboard" class="hidden">
-        <!-- McDull Header -->
-        <header class="bg-white border-b-4 border-[#4a3328] py-6 px-4 mb-8">
+        <header class="bg-white border-b-4 border-[#1E293B] py-6 px-4 mb-8">
             <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-center sm:text-left gap-4">
                 <div class="flex items-center space-x-3">
                     <div>
-                        <h1 class="text-2xl font-black tracking-tight text-[#4a3328]">
+                        <h1 class="text-2xl font-black tracking-tight text-[#0F172A]">
                             我嘅財務管理系統
                         </h1>
-                        <p class="text-red-400 text-xs font-black mt-0.5">「雖然我無得去馬爾代夫，但我會好好儲錢！」</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-3">
-                    <div class="text-xs bg-[#ffe17d] border-2 border-[#4a3328] px-3 py-1.5 rounded-xl font-black shadow-[2px_2px_0px_#4a3328]">
-                        👤 邊個喺度: <span id="currentUserDisplay" class="underline">麥兜</span>
+                <div class="flex flex-wrap items-center gap-3">
+                    <button onclick="exportAllSectionsCSV()" class="btn-yellow text-xs px-3 py-1.5 transition">
+                        📦 匯出全部紀錄
+                    </button>
+                    <div class="text-xs bg-[#BAE6FD] border-2 border-[#1E293B] px-3 py-1.5 rounded-xl font-black shadow-[2px_2px_0px_#1E293B]">
+                        👤 邊個喺度: <span id="currentUserDisplay" class="underline">使用者</span>
                     </div>
-                    <button onclick="handleLogout()" class="bg-red-100 hover:bg-red-200 border-2 border-[#4a3328] text-red-700 font-extrabold text-xs px-3 py-1.5 rounded-xl transition">
+                    <button onclick="handleLogout()" class="bg-red-100 hover:bg-red-200 border-2 border-[#1E293B] text-red-700 font-extrabold text-xs px-3 py-1.5 rounded-xl transition">
                         我要出去！🚪
                     </button>
                 </div>
@@ -150,63 +144,66 @@
 
             <!-- SECTION 1: 個人收入 -->
             <section class="md-card p-6">
-                <div class="flex flex-col lg:flex-row lg:items-center justify-between border-b-2 border-dashed border-[#4a3328]/20 pb-4 mb-6 gap-4">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between border-b-2 border-dashed border-[#1E293B]/20 pb-4 mb-6 gap-4">
                     <div class="flex items-center space-x-2">
                         <span class="text-2xl">💰</span>
-                        <h2 class="text-xl font-black text-[#4a3328]">打工收入 (公司名稱)</h2>
+                        <h2 class="text-xl font-black text-[#0F172A]">打工收入 (公司名稱)</h2>
                     </div>
                     
-                    <div class="flex flex-wrap items-center gap-3 bg-[#FFF7F3] p-3 rounded-xl border-2 border-[#4a3328]">
+                    <div class="flex flex-wrap items-center gap-3 bg-[#F0F7FF] p-3 rounded-xl border-2 border-[#1E293B]">
+                        <div class="flex items-center space-x-1.5">
+                            <label class="text-xs font-black text-slate-600">公司:</label>
+                            <select id="incCompanyFilter" onchange="renderIncomeTable()" class="text-xs border-2 border-[#1E293B] rounded-lg px-2 py-1 bg-white font-bold focus:outline-none">
+                                <option value="all">全部公司</option>
+                            </select>
+                        </div>
                         <div class="flex items-center space-x-1.5">
                             <label class="text-xs font-black text-slate-600">年份:</label>
-                            <select id="incYearFilter" onchange="renderIncomeTable()" class="text-xs border-2 border-[#4a3328] rounded-lg px-2 py-1 bg-white font-bold focus:outline-none">
+                            <select id="incYearFilter" onchange="renderIncomeTable()" class="text-xs border-2 border-[#1E293B] rounded-lg px-2 py-1 bg-white font-bold focus:outline-none">
                                 <option value="all">全部年份</option>
                             </select>
                         </div>
-                        <div class="flex items-center space-x-1.5">
-                            <label class="text-xs font-black text-slate-600">統計:</label>
-                            <select id="incomeTimeRange" onchange="updateIncomeSummary()" class="text-xs border-2 border-[#4a3328] rounded-lg px-2 py-1 bg-white font-bold focus:outline-none">
-                                <option value="all">全部紀錄</option>
-                                <option value="thisMonth">今個月</option>
-                                <option value="3months">近 3 個月</option>
-                                <option value="6months">近 6 個月</option>
-                                <option value="thisYear">今年度</option>
-                            </select>
+                        <div class="flex items-center space-x-1">
+                            <label class="text-xs font-black text-slate-600">由:</label>
+                            <input type="date" id="incStartDate" onchange="renderIncomeTable()" class="text-xs border-2 border-[#1E293B] rounded-lg px-1 py-0.5 bg-white font-bold">
+                            <label class="text-xs font-black text-slate-600">至:</label>
+                            <input type="date" id="incEndDate" onchange="renderIncomeTable()" class="text-xs border-2 border-[#1E293B] rounded-lg px-1 py-0.5 bg-white font-bold">
+                            <button onclick="clearDateFilter('inc')" class="text-[10px] bg-slate-200 border border-[#1E293B] px-1 rounded">清除</button>
                         </div>
-                        <div class="text-xs font-black text-slate-700 border-l border-[#4a3328]/20 pl-3">
-                            總淨收入 (扣埋強積金): <span id="summaryTotal" class="text-sm font-black text-red-500 ml-1">$0.00</span>
+                        <div class="text-xs font-black text-slate-700 border-l border-[#1E293B]/20 pl-3">
+                            篩選總淨收入: <span id="summaryTotal" class="text-sm font-black text-sky-600 ml-1">$0.00</span>
                         </div>
                     </div>
                 </div>
                 
-                <form id="incomeForm" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 items-end bg-[#FFF7F3] p-4 rounded-xl border-2 border-[#4a3328]">
+                <form id="incomeForm" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 items-end bg-[#F0F7FF] p-4 rounded-xl border-2 border-[#1E293B]">
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">公司</label>
-                        <input type="text" id="incCompany" required class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold bg-white">
+                        <input type="text" id="incCompany" required class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold bg-white">
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">出糧大日子</label>
-                        <input type="date" id="incDate" required class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold bg-white">
+                        <input type="date" id="incDate" required class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold bg-white">
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">基本薪金 (HKD)</label>
-                        <input type="number" id="incBase" min="0" step="any" required oninput="calculateIncome()" class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold bg-white">
+                        <input type="number" id="incBase" min="0" step="any" required oninput="calculateIncome()" class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold bg-white">
                     </div>
                     <div>
-                        <label class="block text-xs font-extrabold text-slate-500 mb-1">花紅/獎金 (買雞用)</label>
-                        <input type="number" id="incBonus" min="0" step="any" required value="0" oninput="calculateIncome()" class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold bg-white">
+                        <label class="block text-xs font-extrabold text-slate-500 mb-1">花紅/獎金 (買花戴🌹)</label>
+                        <input type="number" id="incBonus" min="0" step="any" required value="0" oninput="calculateIncome()" class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold bg-white">
                     </div>
                     <div>
-                        <label class="block text-xs font-extrabold text-slate-500 mb-1">強積金 (自動冇咗5%)</label>
-                        <input type="text" id="incMpf" readonly class="w-full px-3 py-1.5 bg-slate-100 border-2 border-[#4a3328]/30 rounded-xl text-xs text-slate-600 font-bold">
+                        <label class="block text-xs font-extrabold text-slate-500 mb-1">強積金 (上限 $1,500)</label>
+                        <input type="text" id="incMpf" readonly class="w-full px-3 py-1.5 bg-slate-100 border-2 border-[#1E293B]/30 rounded-xl text-xs text-slate-600 font-bold">
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">最終落袋 (HKD)</label>
-                        <input type="text" id="incFinal" readonly class="w-full px-3 py-1.5 bg-slate-100 border-2 border-[#4a3328]/30 rounded-xl text-xs font-black text-red-500">
+                        <input type="text" id="incFinal" readonly class="w-full px-3 py-1.5 bg-slate-100 border-2 border-[#1E293B]/30 rounded-xl text-xs font-black text-sky-600">
                     </div>
                     <div class="md:col-span-3 lg:col-span-6 flex justify-end gap-3 mt-2">
                         <button type="button" onclick="exportCSV('incomes')" class="btn-gray text-xs px-3 py-1.5 transition">
-                            📥 匯出數據
+                            📥 匯出此部分數據
                         </button>
                         <button type="submit" class="btn-pink text-xs px-5 py-1.5 transition">
                             儲存紀錄
@@ -217,22 +214,22 @@
                 <div class="mt-6 overflow-x-auto">
                     <table class="w-full text-left border-collapse text-xs font-bold">
                         <thead>
-                            <tr class="bg-[#FFF7F3] text-slate-700 border-b-2 border-[#4a3328]">
+                            <tr class="bg-[#F0F7FF] text-slate-700 border-b-2 border-[#1E293B]">
                                 <th class="py-2.5 px-4">公司</th>
                                 <th class="py-2.5 px-4">出糧大日子</th>
                                 <th class="py-2.5 px-4">基本人工</th>
                                 <th class="py-2.5 px-4">花紅獎金</th>
-                                <th class="py-2.5 px-4">強積金 (5%)</th>
+                                <th class="py-2.5 px-4">強積金</th>
                                 <th class="py-2.5 px-4">最終落袋</th>
                                 <th class="py-2.5 px-4 text-right">動作</th>
                             </tr>
                         </thead>
-                        <tbody id="incomeTableBody" class="divide-y divide-[#4a3328]/10"></tbody>
+                        <tbody id="incomeTableBody" class="divide-y divide-[#1E293B]/10"></tbody>
                     </table>
                 </div>
                 
                 <div id="incShowAllContainer" class="mt-4 text-center hidden">
-                    <button id="incShowAllBtn" onclick="toggleShowAll('incomes')" class="text-xs font-black text-red-400 hover:underline">
+                    <button id="incShowAllBtn" onclick="toggleShowAll('incomes')" class="text-xs font-black text-sky-600 hover:underline">
                         顯示全部紀錄 ↓
                     </button>
                 </div>
@@ -240,23 +237,46 @@
 
             <!-- SECTION 2: 個人保險 -->
             <section class="md-card p-6">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b-2 border-dashed border-[#4a3328]/20 pb-4 mb-6 gap-4">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between border-b-2 border-dashed border-[#1E293B]/20 pb-4 mb-6 gap-4">
                     <div class="flex items-center space-x-2">
                         <span class="text-2xl">🛡️</span>
-                        <h2 class="text-xl font-black text-[#4a3328]">個人保險箱</h2>
+                        <h2 class="text-xl font-black text-[#0F172A]">個人保險</h2>
                     </div>
-                    <div class="flex items-center space-x-1.5 bg-[#FFF7F3] p-2 rounded-xl border-2 border-[#4a3328]">
-                        <label class="text-xs font-black text-slate-600">年份:</label>
-                        <select id="insYearFilter" onchange="renderInsuranceTable()" class="text-xs border-2 border-[#4a3328] rounded-lg px-2 py-1 bg-white font-bold focus:outline-none">
-                            <option value="all">全部年份</option>
-                        </select>
+                    
+                    <div class="flex flex-wrap items-center gap-3 bg-[#F0F7FF] p-3 rounded-xl border-2 border-[#1E293B]">
+                        <div class="flex items-center space-x-1.5">
+                            <label class="text-xs font-black text-slate-600">保險公司:</label>
+                            <select id="insCompanyFilter" onchange="renderInsuranceTable()" class="text-xs border-2 border-[#1E293B] rounded-lg px-2 py-1 bg-white font-bold focus:outline-none">
+                                <option value="all">全部公司</option>
+                                <option value="FWD富衛保險">FWD富衛保險</option>
+                                <option value="Bowtie">Bowtie</option>
+                                <option value="Manulife宏利">Manulife宏利</option>
+                                <option value="保誠Prudential">保誠Prudential</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center space-x-1.5">
+                            <label class="text-xs font-black text-slate-600">年份:</label>
+                            <select id="insYearFilter" onchange="renderInsuranceTable()" class="text-xs border-2 border-[#1E293B] rounded-lg px-2 py-1 bg-white font-bold focus:outline-none">
+                                <option value="all">全部年份</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <label class="text-xs font-black text-slate-600">由:</label>
+                            <input type="date" id="insStartDate" onchange="renderInsuranceTable()" class="text-xs border-2 border-[#1E293B] rounded-lg px-1 py-0.5 bg-white font-bold">
+                            <label class="text-xs font-black text-slate-600">至:</label>
+                            <input type="date" id="insEndDate" onchange="renderInsuranceTable()" class="text-xs border-2 border-[#1E293B] rounded-lg px-1 py-0.5 bg-white font-bold">
+                            <button onclick="clearDateFilter('ins')" class="text-[10px] bg-slate-200 border border-[#1E293B] px-1 rounded">清除</button>
+                        </div>
+                        <div class="text-xs font-black text-slate-700 border-l border-[#1E293B]/20 pl-3">
+                            篩選總保費: <span id="insFilterTotalSum" class="text-sm font-black text-blue-600 ml-1">$0.00</span>
+                        </div>
                     </div>
                 </div>
                 
-                <form id="insuranceForm" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 items-end bg-[#FFF7F3] p-4 rounded-xl border-2 border-[#4a3328]">
+                <form id="insuranceForm" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 items-end bg-[#F0F7FF] p-4 rounded-xl border-2 border-[#1E293B]">
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">保險公司</label>
-                        <select id="insCompany" class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold bg-white">
+                        <select id="insCompany" class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold bg-white">
                             <option value="FWD富衛保險">FWD富衛保險</option>
                             <option value="Bowtie">Bowtie</option>
                             <option value="Manulife宏利">Manulife宏利</option>
@@ -265,33 +285,33 @@
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">保險計劃</label>
-                        <input type="text" id="insPlan" required class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold">
+                        <input type="text" id="insPlan" required class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold">
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">性質</label>
-                        <select id="insType" class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold bg-white">
+                        <select id="insType" class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold bg-white">
                             <option value="自願醫保">自願醫保</option>
                             <option value="危疾">危疾</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">繳費模式</label>
-                        <select id="insMode" class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold bg-white">
+                        <select id="insMode" class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold bg-white">
                             <option value="年繳">年繳</option>
                             <option value="月繳">月繳</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">邊一日交錢</label>
-                        <input type="date" id="insDate" required class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold">
+                        <input type="date" id="insDate" required class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold">
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">交錢金額 (HKD)</label>
-                        <input type="number" id="insAmount" min="0" step="any" required class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold">
+                        <input type="number" id="insAmount" min="0" step="any" required class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold">
                     </div>
                     <div class="md:col-span-3 lg:col-span-6 flex justify-end gap-3 mt-2">
                         <button type="button" onclick="exportCSV('insurances')" class="btn-gray text-xs px-3 py-1.5 transition">
-                            📥 匯出數據
+                            📥 匯出此部分數據
                         </button>
                         <button type="submit" class="btn-pink text-xs px-5 py-1.5 transition">
                             儲存紀錄
@@ -302,7 +322,7 @@
                 <div class="mt-6 overflow-x-auto">
                     <table class="w-full text-left border-collapse text-xs font-bold">
                         <thead>
-                            <tr class="bg-[#FFF7F3] text-slate-700 border-b-2 border-[#4a3328]">
+                            <tr class="bg-[#F0F7FF] text-slate-700 border-b-2 border-[#1E293B]">
                                 <th class="py-2.5 px-4">保險公司</th>
                                 <th class="py-2.5 px-4">保險計劃</th>
                                 <th class="py-2.5 px-4">性質</th>
@@ -312,12 +332,12 @@
                                 <th class="py-2.5 px-4 text-right">動作</th>
                             </tr>
                         </thead>
-                        <tbody id="insuranceTableBody" class="divide-y divide-[#4a3328]/10"></tbody>
+                        <tbody id="insuranceTableBody" class="divide-y divide-[#1E293B]/10"></tbody>
                     </table>
                 </div>
 
                 <div id="insShowAllContainer" class="mt-4 text-center hidden">
-                    <button id="insShowAllBtn" onclick="toggleShowAll('insurances')" class="text-xs font-black text-red-400 hover:underline">
+                    <button id="insShowAllBtn" onclick="toggleShowAll('insurances')" class="text-xs font-black text-sky-600 hover:underline">
                         顯示全部紀錄 ↓
                     </button>
                 </div>
@@ -325,31 +345,57 @@
 
             <!-- SECTION 3: 定期存款 -->
             <section class="md-card p-6">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b-2 border-dashed border-[#4a3328]/20 pb-4 mb-6 gap-4">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between border-b-2 border-dashed border-[#1E293B]/20 pb-4 mb-6 gap-4">
                     <div class="flex items-center space-x-2">
                         <span class="text-2xl">🏦</span>
-                        <h2 class="text-xl font-black text-[#4a3328]">定期存款</h2>
+                        <h2 class="text-xl font-black text-[#0F172A]">定期存款</h2>
                     </div>
-                    <div class="flex items-center space-x-1.5 bg-[#FFF7F3] p-2 rounded-xl border-2 border-[#4a3328]">
-                        <label class="text-xs font-black text-slate-600">年份:</label>
-                        <select id="depYearFilter" onchange="renderDepositTable()" class="text-xs border-2 border-[#4a3328] rounded-lg px-2 py-1 bg-white font-bold focus:outline-none">
-                            <option value="all">全部年份</option>
-                        </select>
+
+                    <div class="flex flex-wrap items-center gap-3 bg-[#F0F7FF] p-3 rounded-xl border-2 border-[#1E293B]">
+                        <div class="flex items-center space-x-1.5">
+                            <label class="text-xs font-black text-slate-600">銀行篩選:</label>
+                            <select id="depBankFilter" onchange="renderDepositTable()" class="text-xs border-2 border-[#1E293B] rounded-lg px-2 py-1 bg-white font-bold focus:outline-none">
+                                <option value="all">全部銀行</option>
+                                <option value="渣打銀行">渣打銀行</option>
+                                <option value="恆生銀行">恆生銀行</option>
+                                <option value="匯豐銀行">匯豐銀行</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center space-x-1.5">
+                            <label class="text-xs font-black text-slate-600">年份:</label>
+                            <select id="depYearFilter" onchange="renderDepositTable()" class="text-xs border-2 border-[#1E293B] rounded-lg px-2 py-1 bg-white font-bold focus:outline-none">
+                                <option value="all">全部年份</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <label class="text-xs font-black text-slate-600">由:</label>
+                            <input type="date" id="depStartDate" onchange="renderDepositTable()" class="text-xs border-2 border-[#1E293B] rounded-lg px-1 py-0.5 bg-white font-bold">
+                            <label class="text-xs font-black text-slate-600">至:</label>
+                            <input type="date" id="depEndDate" onchange="renderDepositTable()" class="text-xs border-2 border-[#1E293B] rounded-lg px-1 py-0.5 bg-white font-bold">
+                            <button onclick="clearDateFilter('dep')" class="text-[10px] bg-slate-200 border border-[#1E293B] px-1 rounded">清除</button>
+                        </div>
+                        <div class="text-xs font-black text-slate-700 border-l border-[#1E293B]/20 pl-3">
+                            篩選總落袋: <span id="depFilterTotalSum" class="text-sm font-black text-emerald-600 ml-1">$0.00</span>
+                        </div>
                     </div>
                 </div>
                 
-                <form id="depositForm" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-4 items-end bg-[#FFF7F3] p-4 rounded-xl border-2 border-[#4a3328]">
+                <form id="depositForm" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-4 items-end bg-[#F0F7FF] p-4 rounded-xl border-2 border-[#1E293B]">
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">邊間銀行</label>
-                        <input type="text" id="depBank" required class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold">
+                        <select id="depBank" class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold bg-white">
+                            <option value="渣打銀行">渣打銀行</option>
+                            <option value="恆生銀行">恆生銀行</option>
+                            <option value="匯豐銀行">匯豐銀行</option>
+                        </select>
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">起息日子</label>
-                        <input type="date" id="depDate" required class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold">
+                        <input type="date" id="depDate" required class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold">
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">定期時長</label>
-                        <select id="depDuration" onchange="calculateDeposit()" class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold bg-white">
+                        <select id="depDuration" onchange="calculateDeposit()" class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold bg-white">
                             <option value="3個月">3個月</option>
                             <option value="6個月">6個月</option>
                             <option value="1年">1年</option>
@@ -357,23 +403,23 @@
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">本金 (HKD)</label>
-                        <input type="number" id="depPrincipal" min="0" step="any" required oninput="calculateDeposit()" class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold">
+                        <input type="number" id="depPrincipal" min="0" step="any" required oninput="calculateDeposit()" class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold">
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">年利率 (%)</label>
-                        <input type="number" id="depRate" min="0" max="100" step="0.01" required oninput="calculateDeposit()" placeholder="e.g. 3.5" class="w-full px-3 py-1.5 border-2 border-[#4a3328] rounded-xl text-xs font-bold bg-white">
+                        <input type="number" id="depRate" min="0" max="100" step="0.01" required oninput="calculateDeposit()" placeholder="e.g. 3.5" class="w-full px-3 py-1.5 border-2 border-[#1E293B] rounded-xl text-xs font-bold bg-white">
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">利息 (自動)</label>
-                        <input type="text" id="depInterest" readonly class="w-full px-3 py-1.5 bg-slate-100 border-2 border-[#4a3328]/30 rounded-xl text-xs font-bold text-orange-600">
+                        <input type="text" id="depInterest" readonly class="w-full px-3 py-1.5 bg-slate-100 border-2 border-[#1E293B]/30 rounded-xl text-xs font-bold text-amber-600">
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-slate-500 mb-1">最終落袋 (HKD)</label>
-                        <input type="text" id="depFinal" readonly class="w-full px-3 py-1.5 bg-slate-100 border-2 border-[#4a3328]/30 rounded-xl text-xs font-black text-[#28b67c]">
+                        <input type="text" id="depFinal" readonly class="w-full px-3 py-1.5 bg-slate-100 border-2 border-[#1E293B]/30 rounded-xl text-xs font-black text-emerald-600">
                     </div>
                     <div class="md:col-span-3 lg:col-span-7 flex justify-end gap-3 mt-2">
                         <button type="button" onclick="exportCSV('deposits')" class="btn-gray text-xs px-3 py-1.5 transition">
-                            📥 匯出數據
+                            📥 匯出此部分數據
                         </button>
                         <button type="submit" class="btn-green text-xs px-5 py-1.5 transition">
                             儲存紀錄
@@ -384,23 +430,23 @@
                 <div class="mt-6 overflow-x-auto">
                     <table class="w-full text-left border-collapse text-xs font-bold">
                         <thead>
-                            <tr class="bg-[#FFF7F3] text-slate-700 border-b-2 border-[#4a3328]">
+                            <tr class="bg-[#F0F7FF] text-slate-700 border-b-2 border-[#1E293B]">
                                 <th class="py-2.5 px-4">邊間銀行</th>
                                 <th class="py-2.5 px-4">起息日子</th>
                                 <th class="py-2.5 px-4">定期時長</th>
                                 <th class="py-2.5 px-4">本金</th>
                                 <th class="py-2.5 px-4">年利率</th>
-                                <th class="py-2.5 px-4 text-orange-600">利息</th>
+                                <th class="py-2.5 px-4 text-amber-600">利息</th>
                                 <th class="py-2.5 px-4">最終落袋</th>
                                 <th class="py-2.5 px-4 text-right">動作</th>
                             </tr>
                         </thead>
-                        <tbody id="depositTableBody" class="divide-y divide-[#4a3328]/10"></tbody>
+                        <tbody id="depositTableBody" class="divide-y divide-[#1E293B]/10"></tbody>
                     </table>
                 </div>
 
                 <div id="depShowAllContainer" class="mt-4 text-center hidden">
-                    <button id="depShowAllBtn" onclick="toggleShowAll('deposits')" class="text-xs font-black text-red-400 hover:underline">
+                    <button id="depShowAllBtn" onclick="toggleShowAll('deposits')" class="text-xs font-black text-sky-600 hover:underline">
                         顯示全部紀錄 ↓
                     </button>
                 </div>
@@ -408,9 +454,9 @@
         </main>
     </div>
 
-    <!-- JavaScript Handling Authentication, Computations, and User Separation -->
+    <!-- JavaScript Core Mechanics Engine -->
     <script>
-        // --- 1. Multi-User Authentication System ---
+        // --- 1. Multi-User Authentication Engine ---
         let currentAuthMode = 'login'; 
         let activeUser = null;
 
@@ -424,12 +470,12 @@
             errorMsg.classList.add('hidden');
 
             if (mode === 'login') {
-                tabLogin.className = "flex-1 py-1.5 text-xs font-black rounded-xl bg-white border-2 border-[#4a3328]";
-                tabRegister.className = "flex-1 py-1.5 text-xs font-black rounded-xl text-slate-500 hover:text-[#4a3328]";
+                tabLogin.className = "flex-1 py-1.5 text-xs font-black rounded-xl bg-white border-2 border-[#1E293B]";
+                tabRegister.className = "flex-1 py-1.5 text-xs font-black rounded-xl text-slate-500 hover:text-[#0F172A]";
                 submitAuthBtn.innerHTML = "開嚟見我！";
             } else {
-                tabRegister.className = "flex-1 py-1.5 text-xs font-black rounded-xl bg-white border-2 border-[#4a3328]";
-                tabLogin.className = "flex-1 py-1.5 text-xs font-black rounded-xl text-slate-500 hover:text-[#4a3328]";
+                tabRegister.className = "flex-1 py-1.5 text-xs font-black rounded-xl bg-white border-2 border-[#1E293B]";
+                tabLogin.className = "flex-1 py-1.5 text-xs font-black rounded-xl text-slate-500 hover:text-[#0F172A]";
                 submitAuthBtn.innerHTML = "加入";
             }
         }
@@ -521,12 +567,15 @@
             viewState.deposits.editIndex = null;
             
             document.getElementById('incYearFilter').value = 'all';
+            document.getElementById('incCompanyFilter').value = 'all';
             document.getElementById('insYearFilter').value = 'all';
+            document.getElementById('insCompanyFilter').value = 'all'; 
             document.getElementById('depYearFilter').value = 'all';
+            document.getElementById('depBankFilter').value = 'all';
 
             populateYearFilters();
+            populateCompanyFilter();
             renderAllTables();
-            updateIncomeSummary();
         }
 
         function saveData() {
@@ -534,8 +583,8 @@
             const isolatedKey = `toy_story_records_${activeUser}`;
             localStorage.setItem(isolatedKey, JSON.stringify(records));
             populateYearFilters();
+            populateCompanyFilter();
             renderAllTables();
-            updateIncomeSummary();
         }
 
 
@@ -544,7 +593,7 @@
         function calculateIncome() {
             const base = parseFloat(document.getElementById('incBase').value) || 0;
             const bonus = parseFloat(document.getElementById('incBonus').value) || 0;
-            const mpf = base * 0.05;
+            const mpf = base >= 30000 ? 1500 : base * 0.05;
             const final = base + bonus - mpf;
 
             document.getElementById('incMpf').value = mpf.toFixed(2);
@@ -598,25 +647,60 @@
             });
         }
 
+        function populateCompanyFilter() {
+            const select = document.getElementById('incCompanyFilter');
+            const currentVal = select.value;
+            select.innerHTML = '<option value="all">全部公司</option>';
+
+            const companies = [...new Set(records.incomes.map(item => (item.company || '').trim()))].filter(Boolean);
+            companies.forEach(comp => {
+                select.innerHTML += `<option value="${comp}">${comp}</option>`;
+            });
+            select.value = currentVal;
+        }
+
+        function clearDateFilter(prefix) {
+            document.getElementById(`${prefix}StartDate`).value = '';
+            document.getElementById(`${prefix}EndDate`).value = '';
+            if(prefix === 'inc') renderIncomeTable();
+            if(prefix === 'ins') renderInsuranceTable();
+            if(prefix === 'dep') renderDepositTable();
+        }
+
         function toggleShowAll(category) {
             viewState[category].showAll = !viewState[category].showAll;
             renderAllTables();
         }
 
 
-        // --- 5. Custom Tables rendering & Inline Editing ---
+        // --- 5. Custom Tables Rendering & Filter Mechanics ---
 
         function renderIncomeTable() {
             const tbody = document.getElementById('incomeTableBody');
             const container = document.getElementById('incShowAllContainer');
             const btn = document.getElementById('incShowAllBtn');
+            
             const yearFilter = document.getElementById('incYearFilter').value;
+            const companyFilter = document.getElementById('incCompanyFilter').value;
+            const startDate = document.getElementById('incStartDate').value;
+            const endDate = document.getElementById('incEndDate').value;
+
             tbody.innerHTML = '';
 
             let filteredList = records.incomes.filter(item => {
-                if (yearFilter === 'all') return true;
-                return new Date(item.date).getFullYear().toString() === yearFilter;
+                const itemDate = new Date(item.date);
+                let matchesYear = (yearFilter === 'all') || (itemDate.getFullYear().toString() === yearFilter);
+                let matchesCompany = (companyFilter === 'all') || (item.company === companyFilter);
+                
+                let matchesDateRange = true;
+                if (startDate) matchesDateRange = matchesDateRange && (itemDate >= new Date(startDate));
+                if (endDate) matchesDateRange = matchesDateRange && (itemDate <= new Date(endDate + "T23:59:59"));
+
+                return matchesYear && matchesCompany && matchesDateRange;
             });
+
+            let totalSum = filteredList.reduce((acc, item) => acc + (parseFloat(item.final) || 0), 0);
+            document.getElementById('summaryTotal').textContent = `$${totalSum.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
 
             const limit = 5;
             const displayList = viewState.incomes.showAll ? filteredList : filteredList.slice(0, limit);
@@ -626,13 +710,13 @@
                 
                 if (viewState.incomes.editIndex === actualIndex) {
                     tbody.innerHTML += `
-                        <tr class="bg-yellow-50/50">
-                            <td class="p-2"><input type="text" id="editIncComp" value="${item.company}" class="w-full px-2 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white"></td>
-                            <td class="p-2"><input type="date" id="editIncDate" value="${item.date}" class="w-full px-2 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white"></td>
-                            <td class="p-2"><input type="number" id="editIncBase" value="${item.base}" oninput="calcInlineInc()" class="w-full px-2 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white"></td>
-                            <td class="p-2"><input type="number" id="editIncBonus" value="${item.bonus}" oninput="calcInlineInc()" class="w-full px-2 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white"></td>
+                        <tr class="bg-sky-50/70">
+                            <td class="p-2"><input type="text" id="editIncComp" value="${item.company}" class="w-full px-2 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white"></td>
+                            <td class="p-2"><input type="date" id="editIncDate" value="${item.date}" class="w-full px-2 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white"></td>
+                            <td class="p-2"><input type="number" id="editIncBase" value="${item.base}" oninput="calcInlineInc()" class="w-full px-2 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white"></td>
+                            <td class="p-2"><input type="number" id="editIncBonus" value="${item.bonus}" oninput="calcInlineInc()" class="w-full px-2 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white"></td>
                             <td class="p-2 text-slate-500 text-xs" id="editIncMpf">-$${parseFloat(item.mpf).toFixed(2)}</td>
-                            <td class="p-2 text-red-500 font-black text-xs" id="editIncFinal">$${parseFloat(item.final).toFixed(2)}</td>
+                            <td class="p-2 text-sky-600 font-black text-xs" id="editIncFinal">$${parseFloat(item.final).toFixed(2)}</td>
                             <td class="p-2 text-right space-x-2">
                                 <button onclick="saveInlineEdit('incomes', ${actualIndex})" class="text-green-600 hover:text-green-800 font-extrabold">儲存</button>
                                 <button onclick="cancelInlineEdit('incomes')" class="text-slate-500 hover:text-slate-700 font-extrabold">取消</button>
@@ -647,9 +731,9 @@
                             <td class="py-3 px-4">$${parseFloat(item.base).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
                             <td class="py-3 px-4">$${parseFloat(item.bonus).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
                             <td class="py-3 px-4 text-red-500">-$${parseFloat(item.mpf).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
-                            <td class="py-3 px-4 font-black text-red-500">$${parseFloat(item.final).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                            <td class="py-3 px-4 font-black text-sky-600">$${parseFloat(item.final).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
                             <td class="py-3 px-4 text-right space-x-3">
-                                <button onclick="startInlineEdit('incomes', ${actualIndex})" class="text-red-400 hover:underline font-extrabold">修改</button>
+                                <button onclick="startInlineEdit('incomes', ${actualIndex})" class="text-sky-600 hover:underline font-extrabold">修改</button>
                                 <button onclick="deleteRecord('incomes', ${actualIndex})" class="text-slate-500 hover:underline font-extrabold">丟棄</button>
                             </td>
                         </tr>
@@ -668,21 +752,37 @@
         function calcInlineInc() {
             const base = parseFloat(document.getElementById('editIncBase').value) || 0;
             const bonus = parseFloat(document.getElementById('editIncBonus').value) || 0;
-            document.getElementById('editIncMpf').textContent = `-$${(base * 0.05).toFixed(2)}`;
-            document.getElementById('editIncFinal').textContent = `$${(base + bonus - (base * 0.05)).toFixed(2)}`;
+            const mpf = base >= 30000 ? 1500 : base * 0.05;
+            document.getElementById('editIncMpf').textContent = `-$${mpf.toFixed(2)}`;
+            document.getElementById('editIncFinal').textContent = `$${(base + bonus - mpf).toFixed(2)}`;
         }
 
         function renderInsuranceTable() {
             const tbody = document.getElementById('insuranceTableBody');
             const container = document.getElementById('insShowAllContainer');
             const btn = document.getElementById('insShowAllBtn');
+            
             const yearFilter = document.getElementById('insYearFilter').value;
+            const companyFilter = document.getElementById('insCompanyFilter').value;
+            const startDate = document.getElementById('insStartDate').value;
+            const endDate = document.getElementById('insEndDate').value;
+
             tbody.innerHTML = '';
 
             let filteredList = records.insurances.filter(item => {
-                if (yearFilter === 'all') return true;
-                return new Date(item.date).getFullYear().toString() === yearFilter;
+                const itemDate = new Date(item.date);
+                const matchesYear = (yearFilter === 'all') || (itemDate.getFullYear().toString() === yearFilter);
+                const matchesCompany = (companyFilter === 'all') || (item.company === companyFilter);
+                
+                let matchesDateRange = true;
+                if (startDate) matchesDateRange = matchesDateRange && (itemDate >= new Date(startDate));
+                if (endDate) matchesDateRange = matchesDateRange && (itemDate <= new Date(endDate + "T23:59:59"));
+
+                return matchesYear && matchesCompany && matchesDateRange;
             });
+
+            let totalSum = filteredList.reduce((acc, item) => acc + (parseFloat(item.amount) || 0), 0);
+            document.getElementById('insFilterTotalSum').textContent = `$${totalSum.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
 
             const limit = 5;
             const displayList = viewState.insurances.showAll ? filteredList : filteredList.slice(0, limit);
@@ -692,30 +792,30 @@
                 
                 if (viewState.insurances.editIndex === actualIndex) {
                     tbody.innerHTML += `
-                        <tr class="bg-yellow-50/50">
+                        <tr class="bg-sky-50/70">
                             <td class="p-2">
-                                <select id="editInsComp" class="w-full px-1 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white bg-white">
+                                <select id="editInsComp" class="w-full px-1 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white">
                                     <option value="FWD富衛保險" ${item.company==='FWD富衛保險'?'selected':''}>FWD富衛保險</option>
                                     <option value="Bowtie" ${item.company==='Bowtie'?'selected':''}>Bowtie</option>
                                     <option value="Manulife宏利" ${item.company==='Manulife宏利'?'selected':''}>Manulife宏利</option>
                                     <option value="保誠Prudential" ${item.company==='保誠Prudential'?'selected':''}>保誠Prudential</option>
                                 </select>
                             </td>
-                            <td class="p-2"><input type="text" id="editInsPlan" value="${item.plan}" class="w-full px-2 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white"></td>
+                            <td class="p-2"><input type="text" id="editInsPlan" value="${item.plan}" class="w-full px-2 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white"></td>
                             <td class="p-2">
-                                <select id="editInsType" class="w-full px-1 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white">
+                                <select id="editInsType" class="w-full px-1 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white">
                                     <option value="自願醫保" ${item.type==='自願醫保'?'selected':''}>自願醫保</option>
                                     <option value="危疾" ${item.type==='危疾'?'selected':''}>危疾</option>
                                 </select>
                             </td>
                             <td class="p-2">
-                                <select id="editInsMode" class="w-full px-1 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white">
+                                <select id="editInsMode" class="w-full px-1 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white">
                                     <option value="年繳" ${item.mode==='年繳'?'selected':''}>年繳</option>
                                     <option value="月繳" ${item.mode==='月繳'?'selected':''}>月繳</option>
                                 </select>
                             </td>
-                            <td class="p-2"><input type="date" id="editInsDate" value="${item.date}" class="w-full px-2 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white"></td>
-                            <td class="p-2"><input type="number" id="editInsAmount" value="${item.amount}" class="w-full px-2 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white"></td>
+                            <td class="p-2"><input type="date" id="editInsDate" value="${item.date}" class="w-full px-2 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white"></td>
+                            <td class="p-2"><input type="number" id="editInsAmount" value="${item.amount}" class="w-full px-2 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white"></td>
                             <td class="p-2 text-right space-x-2">
                                 <button onclick="saveInlineEdit('insurances', ${actualIndex})" class="text-green-600 hover:text-green-800 font-extrabold">儲存</button>
                                 <button onclick="cancelInlineEdit('insurances')" class="text-slate-500 hover:text-slate-700 font-extrabold">取消</button>
@@ -723,8 +823,8 @@
                         </tr>
                     `;
                 } else {
-                    const tagColor = item.type === "自願醫保" ? "bg-teal-50 text-[#4a3328] border-2 border-[#a3ebd0]" : "bg-red-50 text-[#4a3328] border-2 border-[#fbc7c7]";
-                    const modeColor = item.mode === "年繳" ? "bg-yellow-100 text-[#4a3328] border-2 border-[#ffe17d]" : "bg-slate-100 text-[#4a3328] border-2 border-slate-300";
+                    const tagColor = item.type === "自願醫保" ? "bg-sky-100 text-sky-900 border-2 border-sky-300" : "bg-indigo-100 text-indigo-900 border-2 border-indigo-300";
+                    const modeColor = item.mode === "年繳" ? "bg-amber-100 text-amber-900 border-2 border-amber-300" : "bg-slate-100 text-slate-800 border-2 border-slate-300";
                     tbody.innerHTML += `
                         <tr class="hover:bg-slate-50 transition-colors">
                             <td class="py-3 px-4 text-slate-800 font-black">${item.company}</td>
@@ -734,7 +834,7 @@
                             <td class="py-3 px-4 text-slate-500">${item.date}</td>
                             <td class="py-3 px-4 font-black text-slate-900">$${parseFloat(item.amount).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
                             <td class="py-3 px-4 text-right space-x-3">
-                                <button onclick="startInlineEdit('insurances', ${actualIndex})" class="text-red-400 hover:underline font-extrabold">修改</button>
+                                <button onclick="startInlineEdit('insurances', ${actualIndex})" class="text-sky-600 hover:underline font-extrabold">修改</button>
                                 <button onclick="deleteRecord('insurances', ${actualIndex})" class="text-slate-500 hover:underline font-extrabold">丟棄</button>
                             </td>
                         </tr>
@@ -744,7 +844,7 @@
 
             if (filteredList.length > limit) {
                 container.classList.remove('hidden');
-                btn.textContent = viewState.insurances.showAll ? `收起紀錄 ↑` : `顯示全部紀錄 (共 ${filteredList.length} 筆) ↓`;
+                btn.textContent = viewState.insurances.showAll ? `收起紀錄 ↑` : `顯示全部篩選紀錄 (共 ${filteredList.length} 筆) ↓`;
             } else {
                 container.classList.add('hidden');
             }
@@ -754,13 +854,28 @@
             const tbody = document.getElementById('depositTableBody');
             const container = document.getElementById('depShowAllContainer');
             const btn = document.getElementById('depShowAllBtn');
+            
+            const bankFilter = document.getElementById('depBankFilter').value;
             const yearFilter = document.getElementById('depYearFilter').value;
+            const startDate = document.getElementById('depStartDate').value;
+            const endDate = document.getElementById('depEndDate').value;
+
             tbody.innerHTML = '';
 
             let filteredList = records.deposits.filter(item => {
-                if (yearFilter === 'all') return true;
-                return new Date(item.date).getFullYear().toString() === yearFilter;
+                const itemDate = new Date(item.date);
+                const matchesBank = (bankFilter === 'all') || (item.bank === bankFilter);
+                const matchesYear = (yearFilter === 'all') || (itemDate.getFullYear().toString() === yearFilter);
+                
+                let matchesDateRange = true;
+                if (startDate) matchesDateRange = matchesDateRange && (itemDate >= new Date(startDate));
+                if (endDate) matchesDateRange = matchesDateRange && (itemDate <= new Date(endDate + "T23:59:59"));
+
+                return matchesBank && matchesYear && matchesDateRange;
             });
+
+            let totalSum = filteredList.reduce((acc, item) => acc + (parseFloat(item.final) || 0), 0);
+            document.getElementById('depFilterTotalSum').textContent = `$${totalSum.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
 
             const limit = 5;
             const displayList = viewState.deposits.showAll ? filteredList : filteredList.slice(0, limit);
@@ -770,20 +885,26 @@
                 
                 if (viewState.deposits.editIndex === actualIndex) {
                     tbody.innerHTML += `
-                        <tr class="bg-yellow-50/50">
-                            <td class="p-2"><input type="text" id="editDepBank" value="${item.bank}" class="w-full px-2 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white"></td>
-                            <td class="p-2"><input type="date" id="editDepDate" value="${item.date}" class="w-full px-2 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white"></td>
+                        <tr class="bg-sky-50/70">
                             <td class="p-2">
-                                <select id="editDepDur" onchange="calcInlineDep()" class="w-full px-1 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white">
+                                <select id="editDepBank" class="w-full px-1 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white">
+                                    <option value="渣打銀行" ${item.bank==='渣打銀行'?'selected':''}>渣打銀行</option>
+                                    <option value="恆生銀行" ${item.bank==='恆生銀行'?'selected':''}>恆生銀行</option>
+                                    <option value="匯豐銀行" ${item.bank==='匯豐銀行'?'selected':''}>匯豐銀行</option>
+                                </select>
+                            </td>
+                            <td class="p-2"><input type="date" id="editDepDate" value="${item.date}" class="w-full px-2 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white"></td>
+                            <td class="p-2">
+                                <select id="editDepDur" onchange="calcInlineDep()" class="w-full px-1 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white">
                                     <option value="3個月" ${item.duration==='3個月'?'selected':''}>3個月</option>
                                     <option value="6個月" ${item.duration==='6個月'?'selected':''}>6個月</option>
                                     <option value="1年" ${item.duration==='1年'?'selected':''}>1年</option>
                                 </select>
                             </td>
-                            <td class="p-2"><input type="number" id="editDepPri" value="${item.principal}" oninput="calcInlineDep()" class="w-full px-2 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white"></td>
-                            <td class="p-2"><input type="number" id="editDepRate" value="${item.rate}" oninput="calcInlineDep()" class="w-full px-2 py-1 border-2 border-[#4a3328] rounded-md text-xs bg-white"></td>
-                            <td class="p-2 text-orange-600 font-bold text-xs" id="editDepInt">$${parseFloat(item.interest || 0).toFixed(2)}</td>
-                            <td class="p-2 text-red-500 font-bold text-xs" id="editDepFin">$${parseFloat(item.final).toFixed(2)}</td>
+                            <td class="p-2"><input type="number" id="editDepPri" value="${item.principal}" oninput="calcInlineDep()" class="w-full px-2 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white"></td>
+                            <td class="p-2"><input type="number" id="editDepRate" value="${item.rate}" oninput="calcInlineDep()" class="w-full px-2 py-1 border-2 border-[#1E293B] rounded-md text-xs bg-white"></td>
+                            <td class="p-2 text-amber-600 font-bold text-xs" id="editDepInt">$${parseFloat(item.interest || 0).toFixed(2)}</td>
+                            <td class="p-2 text-emerald-600 font-bold text-xs" id="editDepFin">$${parseFloat(item.final).toFixed(2)}</td>
                             <td class="p-2 text-right space-x-2">
                                 <button onclick="saveInlineEdit('deposits', ${actualIndex})" class="text-green-600 hover:text-green-800 font-extrabold">儲存</button>
                                 <button onclick="cancelInlineEdit('deposits')" class="text-slate-500 hover:text-slate-700 font-extrabold">取消</button>
@@ -796,13 +917,13 @@
                         <tr class="hover:bg-slate-50 transition-colors">
                             <td class="py-3 px-4 text-slate-700 font-extrabold">${item.bank}</td>
                             <td class="py-3 px-4 text-slate-500">${item.date}</td>
-                            <td class="py-3 px-4"><span class="bg-[#FFF7F3] text-slate-800 px-2 py-0.5 rounded-lg border-2 border-[#4a3328] text-xs">${item.duration}</span></td>
+                            <td class="py-3 px-4"><span class="bg-[#F0F7FF] text-slate-800 px-2 py-0.5 rounded-lg border-2 border-[#1E293B] text-xs">${item.duration}</span></td>
                             <td class="py-3 px-4">$${parseFloat(item.principal).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
                             <td class="py-3 px-4">${item.rate}%</td>
-                            <td class="py-3 px-4 font-bold text-orange-600">$${interestAmount.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
-                            <td class="py-3 px-4 font-black text-[#28b67c]">$${parseFloat(item.final).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                            <td class="py-3 px-4 font-bold text-amber-600">$${interestAmount.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                            <td class="py-3 px-4 font-black text-emerald-600">$${parseFloat(item.final).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
                             <td class="py-3 px-4 text-right space-x-3">
-                                <button onclick="startInlineEdit('deposits', ${actualIndex})" class="text-red-400 hover:underline font-extrabold">修改</button>
+                                <button onclick="startInlineEdit('deposits', ${actualIndex})" class="text-sky-600 hover:underline font-extrabold">修改</button>
                                 <button onclick="deleteRecord('deposits', ${actualIndex})" class="text-slate-500 hover:underline font-extrabold">丟棄</button>
                             </td>
                         </tr>
@@ -854,7 +975,7 @@
             if (category === 'incomes') {
                 const base = parseFloat(document.getElementById('editIncBase').value) || 0;
                 const bonus = parseFloat(document.getElementById('editIncBonus').value) || 0;
-                const mpf = base * 0.05;
+                const mpf = base >= 30000 ? 1500 : base * 0.05;
                 records.incomes[index] = {
                     company: document.getElementById('editIncComp').value,
                     date: document.getElementById('editIncDate').value,
@@ -894,35 +1015,7 @@
         }
 
 
-        // --- 7. Range Summary Filter ---
-
-        function updateIncomeSummary() {
-            const range = document.getElementById('incomeTimeRange').value;
-            const today = new Date();
-            let sum = 0;
-
-            records.incomes.forEach(item => {
-                const itemDate = new Date(item.date);
-                let matches = false;
-
-                if (range === 'all') matches = true;
-                else if (range === 'thisMonth') matches = itemDate.getFullYear() === today.getFullYear() && itemDate.getMonth() === today.getMonth();
-                else if (range === 'thisYear') matches = itemDate.getFullYear() === today.getFullYear();
-                else if (range === '3months') {
-                    const cutoff = new Date(); cutoff.setMonth(today.getMonth() - 3);
-                    matches = itemDate >= cutoff && itemDate <= today;
-                } else if (range === '6months') {
-                    const cutoff = new Date(); cutoff.setMonth(today.getMonth() - 6);
-                    matches = itemDate >= cutoff && itemDate <= today;
-                }
-
-                if (matches) sum += parseFloat(item.final) || 0;
-            });
-            document.getElementById('summaryTotal').textContent = `$${sum.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
-        }
-
-
-        // --- 8. Export to CSV (With UTF-8 BOM protection) ---
+        // --- 7. Export to CSV Functions ---
 
         function exportCSV(category) {
             const list = records[category];
@@ -935,22 +1028,74 @@
             let fileName = "";
 
             if (category === 'incomes') {
-                csvContent += "公司名稱,日期,基本薪金,花紅_獎金,強積金(5%),最終收入\n";
+                csvContent += "公司名稱,日期,基本薪金,花紅_獎金,強積金(上限$1500),最終收入\n";
                 list.forEach(item => csvContent += `"${item.company}","${item.date}",${item.base},${item.bonus},${item.mpf},${item.final}\n`);
-                fileName = `${activeUser}_McDull_打工收入紀錄.csv`;
+                fileName = `${activeUser}_打工收入紀錄.csv`;
             } else if (category === 'insurances') {
                 csvContent += "保險公司,保險計劃,性質,繳費模式,日期,繳費金額\n";
                 list.forEach(item => csvContent += `"${item.company}","${item.plan}","${item.type}","${item.mode}","${item.date}",${item.amount}\n`);
-                fileName = `${activeUser}_McDull_保險紀錄.csv`;
+                fileName = `${activeUser}_保險紀錄.csv`;
             } else if (category === 'deposits') {
                 csvContent += "銀行,起息日期,定期時長,本金,年利率(%),利息,最終可得\n";
                 list.forEach(item => {
                     const interest = item.interest || (item.final - item.principal);
                     csvContent += `"${item.bank}","${item.date}","${item.duration}",${item.principal},${item.rate},${interest.toFixed(2)},${item.final}\n`;
                 });
-                fileName = `${activeUser}_McDull_定期定存紀錄.csv`;
+                fileName = `${activeUser}_定期定存紀錄.csv`;
             }
 
+            downloadCSVBlob(csvContent, fileName);
+        }
+
+        function exportAllSectionsCSV() {
+            const hasIncomes = records.incomes && records.incomes.length > 0;
+            const hasInsurances = records.insurances && records.insurances.length > 0;
+            const hasDeposits = records.deposits && records.deposits.length > 0;
+
+            if (!hasIncomes && !hasInsurances && !hasDeposits) {
+                alert('目前沒有任何紀錄可以匯出！');
+                return;
+            }
+
+            let csvContent = `=== ${activeUser} 的個人財務全紀錄匯出 ===\n\n`;
+
+            csvContent += "[ 1. 個人收入紀錄 ]\n";
+            csvContent += "公司名稱,日期,基本薪金,花紅_獎金,強積金,最終落袋\n";
+            if (hasIncomes) {
+                records.incomes.forEach(item => {
+                    csvContent += `"${item.company}","${item.date}",${item.base},${item.bonus},${item.mpf},${item.final}\n`;
+                });
+            } else {
+                csvContent += "無資料\n";
+            }
+            csvContent += "\n";
+
+            csvContent += "[ 2. 個人保險紀錄 ]\n";
+            csvContent += "保險公司,保險計劃,性質,繳費模式,日期,繳費金額\n";
+            if (hasInsurances) {
+                records.insurances.forEach(item => {
+                    csvContent += `"${item.company}","${item.plan}","${item.type}","${item.mode}","${item.date}",${item.amount}\n`;
+                });
+            } else {
+                csvContent += "無資料\n";
+            }
+            csvContent += "\n";
+
+            csvContent += "[ 3. 定期存款紀錄 ]\n";
+            csvContent += "銀行,起息日期,定期時長,本金,年利率(%),利息,最終落袋\n";
+            if (hasDeposits) {
+                records.deposits.forEach(item => {
+                    const interest = item.interest || (item.final - item.principal);
+                    csvContent += `"${item.bank}","${item.date}","${item.duration}",${item.principal},${item.rate},${interest.toFixed(2)},${item.final}\n`;
+                });
+            } else {
+                csvContent += "無資料\n";
+            }
+
+            downloadCSVBlob(csvContent, `${activeUser}_財務管理全清單匯出.csv`);
+        }
+
+        function downloadCSVBlob(csvContent, fileName) {
             const blob = new Blob(["\ufeff" + csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
@@ -963,13 +1108,13 @@
         }
 
 
-        // --- 9. Standard Submission Listeners ---
+        // --- 8. Standard Form Submission Handlers ---
 
         document.getElementById('incomeForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const base = parseFloat(document.getElementById('incBase').value);
-            const bonus = parseFloat(document.getElementById('incBonus').value);
-            const mpf = base * 0.05;
+            const base = parseFloat(document.getElementById('incBase').value) || 0;
+            const bonus = parseFloat(document.getElementById('incBonus').value) || 0;
+            const mpf = base >= 30000 ? 1500 : base * 0.05;
 
             records.incomes.push({
                 company: document.getElementById('incCompany').value,
@@ -993,7 +1138,7 @@
                 type: document.getElementById('insType').value,
                 mode: document.getElementById('insMode').value,
                 date: document.getElementById('insDate').value,
-                amount: parseFloat(document.getElementById('insAmount').value)
+                amount: parseFloat(document.getElementById('insAmount').value) || 0
             });
 
             saveData();
@@ -1004,15 +1149,15 @@
         document.getElementById('depositForm').addEventListener('submit', function(e) {
             e.preventDefault();
             calculateDeposit(); 
-            const principal = parseFloat(document.getElementById('depPrincipal').value);
-            const final = parseFloat(document.getElementById('depFinal').value);
+            const principal = parseFloat(document.getElementById('depPrincipal').value) || 0;
+            const final = parseFloat(document.getElementById('depFinal').value) || 0;
 
             records.deposits.push({
                 bank: document.getElementById('depBank').value,
                 date: document.getElementById('depDate').value,
                 duration: document.getElementById('depDuration').value,
                 principal: principal,
-                rate: parseFloat(document.getElementById('depRate').value),
+                rate: parseFloat(document.getElementById('depRate').value) || 0,
                 interest: final - principal,
                 final: final
             });
