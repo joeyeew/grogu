@@ -1174,5 +1174,19 @@
             }
         }
     </script>
+    <script>
+  // Call your backend API (Python Flask or Node.js Express)
+  fetch('/users')
+    .then(response => response.json())
+    .then(data => {
+      const list = document.getElementById('userList');
+      data.forEach(user => {
+        const li = document.createElement('li');
+        li.textContent = `${user.id}: ${user.name}`;
+        list.appendChild(li);
+      });
+    })
+    .catch(err => console.error('Error fetching users:', err));
+</script>
 </body>
 </html>
