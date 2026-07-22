@@ -1,32 +1,9 @@
-// First install sqlite3 with: npm install sqlite3
-const sqlite3 = require('sqlite3').verbose();
+import sqlite3
 
-// Connect to (or create) the database file
-let db = new sqlite3.Database('app.db', (err) => {
-  if (err) {
-    console.error('Error opening database:', err.message);
-  } else {
-    console.log('Connected to SQLite database.');
-  }
-});
-
-// Create a table
-db.run(`CREATE TABLE IF NOT EXISTS users (
-  id INTEGER PRIMARY KEY,
-  name TEXT
-)`, (err) => {
-  if (err) {
-    console.error('Error creating table:', err.message);
-  } else {
-    console.log('Users table created successfully.');
-  }
-});
-
-// Close the connection
-db.close((err) => {
-  if (err) {
-    console.error('Error closing database:', err.message);
-  } else {
-    console.log('Database connection closed.');
-  }
-});
+conn = sqlite3.connect("app.db")
+cursor = conn.cursor()
+cursor.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)")
+cursor.execute("INSERT INTO users (name) VALUES ('Alice')")
+cursor.execute("INSERT INTO users (name) VALUES ('Bob')")
+conn.commit()
+conn.close()
